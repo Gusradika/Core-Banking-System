@@ -9,6 +9,7 @@ public class main {
     public static Scanner sc = new Scanner(System.in);
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static int loginAlias = 0;
+    public static boolean debugMode = false;
 
     public static void main(String[] args) throws IOException {
         // Masuk ke Login Menu
@@ -16,16 +17,12 @@ public class main {
         loginMenu();
     }
 
-    public static void mainMenu() {
-
-    }
-
     public static void loginMenu() throws IOException {
         do {
             cetak.spasi(1);
-            cetak.bannerLogin("Core Banking System <Login as Admin>" + cetak.ANSI_RED_BG + "[0 = Exit]"
-                    + cetak.ANSI_RESET + " || "
+            cetak.bannerLogin("Core Banking System" + cetak.ANSI_RED_BG + cetak.ANSI_RESET + " || "
                     + cetak.randomLoginText());
+            System.out.println("[0 = Exit]");
             System.out.print("Username : ");
             String adminUserName = br.readLine();
             if (adminUserName.equals("0")) {
@@ -43,6 +40,10 @@ public class main {
                 if (adminUserName.equals(a) && adminUserPass.equals(b)) {
                     loginAlias = i;
                     System.out.println("LoginAlias : " + loginAlias);
+                    if (loginAlias == 1) {
+                        debugMode = true;
+                        System.out.println(cetak.ANSI_CYAN_BG + "[DEBUG MODE ACTIVATED]");
+                    }
                 }
             }
 

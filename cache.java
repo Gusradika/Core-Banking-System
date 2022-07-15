@@ -51,9 +51,12 @@ public class cache {
     public static Vector Npekerjaan = new Vector<String>();
     public static Vector NcreateDate = new Vector<Integer>();
 
+    public static Vector Npin = new Vector<String>();
+
     public static void allCache() {
         dataAdminVector();
         dataCacheNasabah();
+        cache.generatePin();
     }
 
     public static void dataCacheNasabah() {
@@ -74,6 +77,25 @@ public class cache {
             // Data Pekerjaan
             Npekerjaan.add(SNpekerjaan[i]);
             NcreateDate.add(SNcreateDate[i]);
+        }
+    }
+
+    public static void generatePin() {
+        /*
+         * method ini digunakan untuk generate Pin khusus pengguna yang sudah di
+         * tentukan di awal program (cache)
+         * 
+         * RUMUS :
+         * SNnomorktp 2141010039 --> 2 Pertama = 21
+         * SNtelp 081330293390 --> 2 Terakhir = 90
+         * SNnomorktp 2141010039 --> 2 Terakhir = 39
+         * PIN = 219039
+         */
+        String temp = "";
+        for (int i = 0; i < SNnomorKtp.length; i++) {
+            temp = SNnomorKtp[i].substring(0, 2) + SNtelp[i].substring(10, 12) + SNnomorKtp[i].substring(8, 10);
+            // System.out.println(i + "- " + temp);
+            Npin.add(temp);
         }
     }
 

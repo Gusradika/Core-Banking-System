@@ -13,8 +13,8 @@ public class main {
 
     public static void main(String[] args) throws IOException {
         // Masuk ke Login Menu
-        String a = "Natasha Daliman";
-        System.out.println(a.length());
+        // String a = "Natasha Daliman";
+        // System.out.println(a.length());
         cache.allCache();
         loginMenu();
     }

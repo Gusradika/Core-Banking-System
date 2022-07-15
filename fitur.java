@@ -58,7 +58,8 @@ public class fitur {
 
         cetak.spasi(2);
         cetak.banner2("1 - Registrasi Nasabah");
-        System.out.println("Silahkan mengisi form untuk melakukan Registrasi [0 = Cancel]");
+        System.out.println("Silahkan mengisi form untuk melakukan Registrasi" + cetak.ANSI_CYAN
+                + " [0 = Cancel | -help = Guide mengisi]" + cetak.ANSI_RESET);
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN + "#### Data diri     ####" + cetak.ANSI_RESET);
         // KTP
@@ -69,6 +70,7 @@ public class fitur {
             cekInputan();
         } while (parameterNotOk);
 
+        // NAMA
         do {
             System.out.print("Nama sesuai identitas\t\t: ");
             nama = main.br.readLine();
@@ -76,15 +78,21 @@ public class fitur {
             cekInputan();
         } while (parameterNotOk);
 
-        System.out.print("Alamat sesuai identitas\t\t: ");
-        alamat = main.br.readLine();
-        registNasabahCancel();
-        cekInputan();
+        // ALAMAT
+        do {
+            System.out.print("Alamat sesuai identitas\t\t: ");
+            alamat = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
 
-        System.out.print("Jenis kelamin\t\t\t: "); // L / P
-        gender = main.br.readLine();
-        registNasabahCancel();
-        cekInputan();
+        // JENIS KELAMIN
+        do {
+            System.out.print("Jenis kelamin (L/ P)\t\t: "); // L / P
+            gender = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
 
         System.out.print("Agama\t\t\t\t: ");
         agama = main.br.readLine();
@@ -139,39 +147,69 @@ public class fitur {
             // Tambahkan Debug Mode disini
             System.out.println(cetak.ANSI_RED_BG + "Canceled!" + cetak.ANSI_RESET);
             mainMenu();
+        } else if (ktp.equals("-help") || nama.equals("-help") || alamat.equals("-help") || gender.equals("-help")
+                || agama.equals("-help")
+                || birthdate.equals("-help") || telp.equals("-help") || ibukandung.equals("-help")
+                || email.equals("-help")
+                || pekerjaan.equals("-help")) {
+            // Buat Sistem Seperti OWSS dimana kita dapat memberikan parameter huruf di
+            // setiap baris untuk guide.
         }
     }
 
     public static void cekInputan() {
         // cek inputan ktp dengan rules [Terdiri dari 11 karakter || Tidak Menggunakan
         // Huruf]
-        parameterNotOk = true;
         if (!ktp.equals("") && ktp.length() == 11 && !ktp.matches("[a-zA-Z_]+")) {
             parameterNotOk = false;
-        } else {
+        } else if (!ktp.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
                     + "Masukan data KTP yang valid! [Terdiri dari 11 karakter || Tidak Menggunakan Huruf]"
                     + cetak.ANSI_RESET);
+            parameterNotOk = true;
         }
         // cek inputan Nama [tidak lebih dari 16 karakter & tidak lebih kecil dari 6]
         // Tediri dari nama depan dan nama belakang
-        parameterNotOk = true;
         if (!nama.equals("") && nama.length() < 16 && nama.length() >= 6 && !nama.matches("[0-9]+")) {
             parameterNotOk = false;
-        } else {
+        } else if (!nama.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
                     + "Masukan Nama yang valid! [Max 16 & Min 6]"
                     + cetak.ANSI_RESET);
+            parameterNotOk = true;
         }
 
         // cek inputan alamat
-        if (alamat.length() >= 6) {
+        if (alamat.length() > 6) {
             parameterNotOk = false;
-        } else {
+        } else if (!alamat.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
                     + "Masukan alamat yang valid! [Min 6]"
                     + cetak.ANSI_RESET);
+            parameterNotOk = true;
         }
+
+        // cek inputan Gender
+        if ((gender.equalsIgnoreCase("L") || gender.equalsIgnoreCase("P")) && !gender.equals("")) {
+            parameterNotOk = false;
+        } else if (!gender.equals("")) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan gender yang valid! [L / P]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
+
+        // cek inputan agama
+        if (agama.length() >= 5) {
+            parameterNotOk = false;
+        } else if (agama.length() < 5) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan nama Agama yang valid [Min 5]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
+
+        // cek inputan birthdate
 
         if (parameterNotOk) {
         }

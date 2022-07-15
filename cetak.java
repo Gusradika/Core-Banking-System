@@ -64,12 +64,12 @@ public class cetak {
         spasi(1);
         int panjangGaris = kata.length();
         System.out.println();
-        for (int i = 0; i < (panjangGaris + 4); i++) {
+        for (int i = 0; i < (panjangGaris - 1); i++) {
             System.out.print("#");
         }
         System.out.println();
         System.out.println("##  " + ANSI_GREEN + kata + "  ##" + ANSI_RESET);
-        for (int i = 0; i < (panjangGaris + 4); i++) {
+        for (int i = 0; i < (panjangGaris - 1); i++) {
             System.out.print("#");
         }
         System.out.println();

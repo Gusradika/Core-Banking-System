@@ -8,14 +8,21 @@ public class fitur {
     // login UI
     public static void mainMenu() throws IOException {
         do {
+            cetak.spasi(2);
             cetak.banner("Loged in as " + cache.loginId[main.loginAlias]);
-            System.out.println();
-            System.out.println("Masukan inputan [0 = Logout]>");
+            System.out.println(
+                    "[1] - Registrasi Nasabah\n[2] - View Data Nasabah\n[3] - Pencarian Data Nasabah\n[4] - Hapus Edit Data Nasabah\n[5] - Proses Setoran\n[6] - Proses Penarikan\n[7] - Cetak Buku\n[8] - Transfer\n[9] - Penutupan Rekening");
+            cetak.spasi(1);
+            System.out.print("Masukan inputan [0 = Logout]>");
             input = main.sc.nextInt();
             switch (input) {
 
                 case 0:
                     logout();
+                    break;
+
+                case 1:
+
                     break;
 
             }

@@ -13,7 +13,6 @@ public class main {
 
     public static void main(String[] args) throws IOException {
         // Masuk ke Login Menu
-        cache.generatePin();
         cache.allCache();
         loginMenu();
     }

@@ -4,7 +4,7 @@ public class cache {
 
     private static String String_dataAdminUserName[] = { "1", "debug" };
     private static String String_dataAdminUserPass[] = { "1", "debug" };
-    public static String[] loginId = { "Adminstrator", "Debugmode" };
+    public static String[] loginId = { "Administrator", "Debugmode" };
     public static Vector<String> Vector_dataAdminUserName = new Vector<String>();
     public static Vector<String> Vector_dataAdminUserPass = new Vector<String>();
 

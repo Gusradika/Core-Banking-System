@@ -13,6 +13,18 @@ public class cetak {
     }
 
     // ######################################################################//
+    // NEWS dan PROMOSI
+    // ######################################################################//
+
+    public static String newsPromosi() {
+        String[] news = { "Promo bunga pinjaman hanya 0,5% untuk para pelaku UMK",
+                "Menabung lebih mudah dengan rekening pelajar, Khusus usia dibawah 18",
+                "Nikmati program syariah yang telah disediakan" };
+        int int_random2 = random.nextInt(news.length);
+        return news[int_random2];
+    }
+
+    // ######################################################################//
     // Banner
     // ######################################################################//
 
@@ -30,18 +42,19 @@ public class cetak {
     }
 
     // cetak banner biasa dengan text Yellow
-    public static void banner(String kata) {
-        int panjangGaris = kata.length();
-        for (int i = 0; i < (panjangGaris + 4); i++) {
-            System.out.print("#");
-        }
-        System.out.println();
-        System.out.println(ANSI_YELLOW_BG + "# " + kata + " #" + ANSI_RESET);
-        for (int i = 0; i < (panjangGaris + 4); i++) {
-            System.out.print("#");
-        }
-        System.out.println();
-    }
+    // public static void banner(String kata) {
+    // int panjangGaris = kata.length();
+    // for (int i = 0; i < (panjangGaris + 4); i++) {
+    // System.out.print("#");
+    // }
+    // System.out.println();
+    // System.out.println(ANSI_YELLOW + "# " + kata + ANSI_RESET
+    // + "|| Dont forget to smile,happy, and keep your spirit up :)" + " #");
+    // for (int i = 0; i < (panjangGaris + 4); i++) {
+    // System.out.print("#");
+    // }
+    // System.out.println();
+    // }
 
     // Banner debug di gunakan untuk segala urusan debugging info
     public static void bannerDebug(String kata) {
@@ -64,12 +77,27 @@ public class cetak {
         spasi(1);
         int panjangGaris = kata.length();
         System.out.println();
-        for (int i = 0; i < (panjangGaris - 1); i++) {
+        for (int i = 0; i < (panjangGaris + 4); i++) {
             System.out.print("#");
         }
         System.out.println();
         System.out.println("##  " + ANSI_GREEN + kata + "  ##" + ANSI_RESET);
-        for (int i = 0; i < (panjangGaris - 1); i++) {
+        for (int i = 0; i < (panjangGaris + 4); i++) {
+            System.out.print("#");
+        }
+        System.out.println();
+    }
+
+    public static void banner(String kata) {
+        spasi(1);
+        int panjangGaris = kata.length();
+        System.out.println();
+        for (int i = 0; i < (panjangGaris + 4); i++) {
+            System.out.print("#");
+        }
+        System.out.println();
+        System.out.println("##  " + ANSI_YELLOW + kata + "  ##" + ANSI_RESET);
+        for (int i = 0; i < (panjangGaris + 4); i++) {
             System.out.print("#");
         }
         System.out.println();

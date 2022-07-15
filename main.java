@@ -20,8 +20,13 @@ public class main {
     public static void loginMenu() throws IOException {
         do {
             cetak.spasi(1);
-            cetak.bannerLogin("Core Banking System" + cetak.ANSI_RED_BG + cetak.ANSI_RESET + " || "
-                    + cetak.randomLoginText());
+            cetak.bannerLogin(
+                    "Core Banking System // Pt.Bank Indivo Central" + cetak.ANSI_RESET + " || "
+                            + cetak.randomLoginText());
+            System.out.println(
+                    "- " + cetak.ANSI_CYAN + "Motto : " + cetak.ANSI_RESET
+                            + "Bank Pendukung Kemajuan Masyarakat Sejahtera -");
+
             if (loginTry > 0) {
                 System.out.print("[0 = Exit]" + cetak.ANSI_RED_BG + "\tUSERNAME/PASSWORD SALAH!\n" + cetak.ANSI_RESET);
             } else {

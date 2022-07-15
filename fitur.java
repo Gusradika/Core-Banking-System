@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class fitur {
@@ -6,6 +6,7 @@ public class fitur {
     public static int input = 0;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "";
+    private static boolean parameterNotOk = true;
 
     // login UI
     public static void mainMenu() throws IOException {
@@ -49,6 +50,10 @@ public class fitur {
         main.loginMenu();
     }
 
+    /*
+     * ################# FEATURE KE 1 - REGISTRASI NASABAH #################
+     */
+
     public static void registNasabah() throws IOException {
 
         cetak.spasi(2);
@@ -56,24 +61,40 @@ public class fitur {
         System.out.println("Silahkan mengisi form untuk melakukan Registrasi [0 = Cancel]");
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN + "#### Data diri     ####" + cetak.ANSI_RESET);
-        System.out.print("Nomor identitas\t\t\t: ");
-        ktp = main.br.readLine();
-        registNasabahCancel();
-        System.out.print("Nama sesuai identitas\t\t: ");
-        nama = main.br.readLine();
-        registNasabahCancel();
+        // KTP
+        do {
+            System.out.print("Nomor identitas\t\t\t: ");
+            ktp = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
+
+        do {
+            System.out.print("Nama sesuai identitas\t\t: ");
+            nama = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
+
         System.out.print("Alamat sesuai identitas\t\t: ");
         alamat = main.br.readLine();
         registNasabahCancel();
+        cekInputan();
+
         System.out.print("Jenis kelamin\t\t\t: "); // L / P
         gender = main.br.readLine();
         registNasabahCancel();
+        cekInputan();
+
         System.out.print("Agama\t\t\t\t: ");
         agama = main.br.readLine();
         registNasabahCancel();
+        cekInputan();
+
         System.out.print("Tanggal lahir [DD/MM/YYYY]\t: ");
         birthdate = main.br.readLine();
         registNasabahCancel();
+        cekInputan();
 
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN + "#### Data Tambahan ####" + cetak.ANSI_RESET);
@@ -118,6 +139,41 @@ public class fitur {
             // Tambahkan Debug Mode disini
             System.out.println(cetak.ANSI_RED_BG + "Canceled!" + cetak.ANSI_RESET);
             mainMenu();
+        }
+    }
+
+    public static void cekInputan() {
+        // cek inputan ktp dengan rules [Terdiri dari 11 karakter || Tidak Menggunakan
+        // Huruf]
+        parameterNotOk = true;
+        if (!ktp.equals("") && ktp.length() == 11 && !ktp.matches("[a-zA-Z_]+")) {
+            parameterNotOk = false;
+        } else {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan data KTP yang valid! [Terdiri dari 11 karakter || Tidak Menggunakan Huruf]"
+                    + cetak.ANSI_RESET);
+        }
+        // cek inputan Nama [tidak lebih dari 16 karakter & tidak lebih kecil dari 6]
+        // Tediri dari nama depan dan nama belakang
+        parameterNotOk = true;
+        if (!nama.equals("") && nama.length() < 16 && nama.length() >= 6 && !nama.matches("[0-9]+")) {
+            parameterNotOk = false;
+        } else {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan Nama yang valid! [Max 16 & Min 6]"
+                    + cetak.ANSI_RESET);
+        }
+
+        // cek inputan alamat
+        if (alamat.length() >= 6) {
+            parameterNotOk = false;
+        } else {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan alamat yang valid! [Min 6]"
+                    + cetak.ANSI_RESET);
+        }
+
+        if (parameterNotOk) {
         }
     }
 }

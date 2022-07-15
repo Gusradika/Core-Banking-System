@@ -35,23 +35,23 @@ public class cache {
     public static int[] SNcreateDate = { 1672022, 452014, 1321999, 1182013, 112000, 1551989, 7122019, 332015 };
 
     // Cache data nasabah
-    public static Vector Nnomorktp = new Vector<String>();
-    public static Vector Nnama = new Vector<String>();
-    public static Vector Nalamat = new Vector<String>();
-    public static Vector Ngender = new Vector<String>();
-    public static Vector Nagama = new Vector<String>();
-    public static Vector Nbirthdate = new Vector<Integer>();
+    public static Vector<String> Nnomorktp = new Vector<String>();
+    public static Vector<String> Nnama = new Vector<String>();
+    public static Vector<String> Nalamat = new Vector<String>();
+    public static Vector<String> Ngender = new Vector<String>();
+    public static Vector<String> Nagama = new Vector<String>();
+    public static Vector<Integer> Nbirthdate = new Vector<Integer>();
 
     // Cache data pendukung
-    public static Vector NibuKandung = new Vector<String>();
-    public static Vector Ntelp = new Vector<String>();
-    public static Vector Nemail = new Vector<String>();
+    public static Vector<String> NibuKandung = new Vector<String>();
+    public static Vector<String> Ntelp = new Vector<String>();
+    public static Vector<String> Nemail = new Vector<String>();
 
     // Cache data pendukung
-    public static Vector Npekerjaan = new Vector<String>();
-    public static Vector NcreateDate = new Vector<Integer>();
+    public static Vector<String> Npekerjaan = new Vector<String>();
+    public static Vector<Integer> NcreateDate = new Vector<Integer>();
 
-    public static Vector Npin = new Vector<String>();
+    public static Vector<String> Npin = new Vector<String>();
 
     public static void allCache() {
         dataAdminVector();

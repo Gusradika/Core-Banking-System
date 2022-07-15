@@ -96,8 +96,23 @@ public class cetak {
             System.out.print("#");
         }
         System.out.println();
-        System.out.println("##  " + ANSI_YELLOW + kata + "  ##" + ANSI_RESET);
+        System.out.println("##  " + ANSI_YELLOW + kata + ANSI_RESET + "  ##");
         for (int i = 0; i < (panjangGaris + 4); i++) {
+            System.out.print("#");
+        }
+        System.out.println();
+    }
+
+    public static void banner2(String kata) {
+        spasi(1);
+        int panjangGaris = kata.length();
+        System.out.println();
+        for (int i = 0; i < (panjangGaris + 8); i++) {
+            System.out.print("#");
+        }
+        System.out.println();
+        System.out.println("##  " + ANSI_YELLOW + kata + ANSI_RESET + "  ##");
+        for (int i = 0; i < (panjangGaris + 8); i++) {
             System.out.print("#");
         }
         System.out.println();

@@ -14,7 +14,8 @@ public class fitur {
             cetak.banner("CORE BANKING SYSTEM MENU" + cetak.ANSI_RESET + " || "
                     + "Dont forget to Smile, Happy, and Keep your spirit up!");
             System.out.println(cetak.ANSI_YELLOW + "NEWS : " + cetak.ANSI_RESET + cetak.newsPromosi());
-            System.out.println("####################################################################################");
+            System.out.println(
+                    "#########################################################################################");
             System.out.println(cetak.ANSI_CYAN + "Welcome Back " + cetak.ANSI_RESET + cache.loginId[main.loginAlias]);
             cetak.spasi(1);
             System.out.println(
@@ -47,5 +48,42 @@ public class fitur {
 
     public static void registNasabah() throws IOException {
         cetak.spasi(2);
+        cetak.banner2("1 - Registrasi Nasabah");
+        System.out.println("Silahkan mengisi form untuk melakukan Registrasi [0 = Cancel]");
+        cetak.spasi(1);
+        System.out.println(cetak.ANSI_GREEN + "#### Data diri ####" + cetak.ANSI_RESET);
+        System.out.print("Nomor identitas\t\t\t: ");
+
+        System.out.print("Nama sesuai identitas\t\t\t: ");
+
+        System.out.print("Alamat sesuai identitas\t\t\t: ");
+
+        System.out.print("Jenis kelamin\t\t\t: "); // L / P
+
+        System.out.print("Agama\t\t\t: ");
+
+        System.out.print("Tanggal lahir [DD/MM/YYYY]\t\t\t: ");
+
+        cetak.spasi(1);
+        System.out.println(cetak.ANSI_GREEN + "#### Data Tambahan ####" + cetak.ANSI_RESET);
+
+        System.out.print("Nama ibu kandung\t\t\t: ");
+
+        System.out.print("Nomor telepon\t\t\t: ");
+
+        System.out.print("Email\t\t\t: ");
+
+        cetak.spasi(1);
+        System.out.println(cetak.ANSI_GREEN + "#### Data Pekerjaan ####" + cetak.ANSI_RESET);
+
+        System.out.print("Pekerjaan\t\t\t: ");
+
+        // PRINT SEMUA DATA YANG TELAH DI INPUT LALU, apakah anda yakin untuk
+        // melanjutkan?
+
+        System.out.print("Pekerjaan\t\t\t: ");
+
+        System.out.print("Nomor\t\t\t: ");
+
     }
 }

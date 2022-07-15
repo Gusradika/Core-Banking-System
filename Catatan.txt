@@ -1,0 +1,18 @@
+Data Diri
+No KTP      : 21312312312
+Nama        : Cheryl
+Alamat      : Jl.Astungkara raya B14
+Jenis Kelamin : L/P
+Agama       : Islam
+Tanggal Lahir : [DD][MMM][YYYY]
+
+Nama Ibu Kandung : Anabele
+No Telp :   0813 3029 3390
+Email   :   aditezo24@gmail.com
+
+Data Pekerjaan
+Pekerjaan : Swasta
+Limit Transaksi :  [BERDASARKAN PAKET]
+
+Date Created : [DD][MMM][YYYY]
+No Rek       : [AUTO GENERATED]

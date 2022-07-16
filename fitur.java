@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.text.*;
 
 public class fitur {
 
@@ -7,6 +8,9 @@ public class fitur {
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "", inputString = "";
     private static boolean parameterNotOk = true;
+    public static SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public static SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+    public static Date date = new Date();
 
     // login UI
     public static void mainMenu() throws IOException {
@@ -20,7 +24,8 @@ public class fitur {
             System.out.println(
                     "#########################################################################################");
             System.out.println(
-                    cetak.ANSI_CYAN_BG + "LOGGED IN AS" + cetak.ANSI_RESET + " " + cache.loginId[main.loginAlias]);
+                    cetak.ANSI_CYAN + "LOGGED IN AS" + cetak.ANSI_RESET + " " + cache.loginId[main.loginAlias]
+                            + cetak.ANSI_CYAN + " Time : " + formatter1.format(date) + cetak.ANSI_RESET);
             cetak.spasi(1);
             System.out.println(
                     "[1] - Registrasi Nasabah\n[2] - View Data Nasabah\n[3] - Pencarian Data Nasabah\n[4] - Hapus Edit Data Nasabah\n[5] - Proses Setoran\n[6] - Proses Penarikan\n[7] - Cetak Buku\n[8] - Transfer\n[9] - Penutupan Rekening");
@@ -144,8 +149,60 @@ public class fitur {
         // melanjutkan?
 
         if (!parameterNotOk) {
+            cetak.spasi(1);
+            cetak.banner2("Rekap Pengisian");
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data diri     ####" + cetak.ANSI_RESET);
+            System.out.println("Nomor identitas\t\t\t: " + ktp);
+            System.out.println("Nama sesuai identitas\t\t: " + nama);
+            System.out.println("Alamat sesuai identitas\t\t: " + alamat);
+            System.out.println("Jenis kelamin (L/P)\t\t: " + gender.toUpperCase());
+            System.out.println("Agama\t\t\t\t: " + agama);
+            System.out.println("Tanggal lahir [DD/MM/YYYY]\t: " + birthdate);
 
-            System.out.println("");
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Tambahan ####" + cetak.ANSI_RESET);
+            System.out.println("Nomor telepon\t\t\t: " + telp);
+            System.out.println("Nama ibu kandung\t\t: " + ibukandung);
+            System.out.println("Email\t\t\t\t: " + email);
+
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Pekerjaan ####" + cetak.ANSI_RESET);
+            System.out.println("Pekerjaan\t\t\t: " + pekerjaan);
+            cetak.spasi(1);
+
+            do {
+                System.out.print(cetak.ANSI_YELLOW
+                        + "Apakah data anda sudah benar?" + cetak.ANSI_RESET
+                        + " [0 = Rubah data / Back || 1 = Sudah Benar] >");
+                inputString = main.br.readLine();
+                if (inputString.equals("0")) {
+                    registNasabahCancel();
+                }
+                if (inputString.equals("1")) {
+                    break;
+                } else {
+                    System.out.println(cetak.ANSI_RED + "Inputan Salah" + cetak.ANSI_RESET);
+                }
+            } while (true);
+
+            do {
+                System.out.print("Silahkan " + cetak.ANSI_YELLOW + "Tanda Tangan" + cetak.ANSI_RESET
+                        + "(Sebagai Pernyataan Setuju) dengan menuliskan nama anda >");
+                inputString = main.br.readLine();
+                if (inputString.equals(nama)) {
+                    System.out.println(cetak.ANSI_GREEN_BG + "[Pernyataan Setuju Dibuat]" + cetak.ANSI_RESET
+                            + "[DATE : " + formatter2.format(date) + "]");
+                    break;
+                } else {
+                    System.out.println(cetak.ANSI_RED_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                }
+            } while (true);
+
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Keamanan & Akses Transaksi ####" + cetak.ANSI_RESET);
+            System.out.println("PIN anda\t\t\t: " + cache.generatePin2());
+            System.out.println("Nomor Rekening\t\t\t: " + cetak.ANSI_RESET);
+
         }
 
     }
@@ -191,6 +248,7 @@ public class fitur {
             email = "";
             pekerjaan = "";
             System.out.println(cetak.ANSI_RED_BG + "Rubah Data" + cetak.ANSI_RESET);
+            inputString = "";
             registNasabah();
         }
     }
@@ -250,15 +308,11 @@ public class fitur {
         // cek inputan birthdate manfaatkan String to Integer if substr pertama 0 maka
         // cut dengan char at nomor 2 sampai habis di masukan ke data yang baru
         // (replace)
-        if (birthdate.length() == 8 && !birthdate.matches("[a-zA-Z_]+") && !birthdate.equals("")) {
-            int birthdateInt;
-            String birthdateTemp;
+        if (birthdate.length() == 10 && !birthdate.matches("[a-zA-Z_]+") && !birthdate.equals("")) {
             parameterNotOk = false;
-            birthdateTemp = birthdate.substring(1, birthdate.length());
-            birthdateInt = Integer.parseInt(birthdateTemp);
         } else if (!birthdate.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
-                    + "Masukan Birthdate yang valid [DD/MM/YYYY]"
+                    + "Masukan Birthdate yang valid [DD/MM/YYYY] jangan lupa Tuliskan \"/\""
                     + cetak.ANSI_RESET);
             parameterNotOk = true;
         }

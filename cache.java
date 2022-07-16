@@ -32,7 +32,8 @@ public class cache {
     // Data pekerjaan
     private static String[] SNpekerjaan = { "Mahasiswa", "Karyawan Swasta", "Wiraswasta", "Mahasiswa", "Guru",
             "Wiraswasta", "Polisi", "Hakim" };
-    public static int[] SNcreateDate = { 1672022, 452014, 1321999, 1182013, 112000, 1551989, 7122019, 332015 };
+    public static String[] SNcreateDate = { "16/07/2022", "04/05/2014", "13/02/1999", "11/08/2013", "01/01/2000",
+            "15/05/1989", "07/12/2019", "03/03/2015" };
 
     // Cache data nasabah
     public static Vector<String> Nnomorktp = new Vector<String>();
@@ -49,9 +50,10 @@ public class cache {
 
     // Cache data pendukung
     public static Vector<String> Npekerjaan = new Vector<String>();
-    public static Vector<Integer> NcreateDate = new Vector<Integer>();
+    public static Vector<String> NcreateDate = new Vector<String>();
 
     public static Vector<String> Npin = new Vector<String>();
+    public static Vector<String> Nnorek = new Vector<String>();
 
     public static void allCache() {
         dataAdminVector();
@@ -97,6 +99,23 @@ public class cache {
             // System.out.println(i + "- " + temp);
             Npin.add(temp);
         }
+    }
+
+    public static String generatePin2() {
+        /*
+         * method ini digunakan untuk generate Pin khusus pengguna yang sudah di
+         * tentukan di awal program (cache)
+         * 
+         * RUMUS :
+         * SNnomorktp 2141010039 --> 2 Pertama = 21
+         * SNtelp 081330293390 --> 2 Terakhir = 90
+         * SNnomorktp 2141010039 --> 2 Terakhir = 39
+         * PIN = 219039
+         */
+        String temp = "";
+        temp = fitur.ktp.substring(0, 2) + fitur.telp.substring((fitur.telp.length() - 2), fitur.telp.length())
+                + fitur.ktp.substring(8, 10);
+        return temp;
     }
 
     public static void dataAdminVector() {

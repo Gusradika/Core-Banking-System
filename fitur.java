@@ -4,7 +4,7 @@ import java.text.*;
 
 public class fitur {
 
-    public static int input = 0, setoran = 0;
+    public static int input = 0, setoran = 0, input2 = 0;
     private static boolean viewpin = false;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
@@ -56,6 +56,9 @@ public class fitur {
 
                 case 3:
                     pencarianDataNasabah();
+                    break;
+                case 4:
+                    hapusEditData();
                     break;
             }
         } while (true);
@@ -517,7 +520,7 @@ public class fitur {
         do {
             cetak.spasi(2);
             cetak.banner2(" X - Informasi Seputar Nasabah No.rek - " + cache.Nnorek.elementAt(input - 1)
-                    + cache.Nnama.elementAt(input - 1));
+                    + " " + cache.Nnama.elementAt(input - 1));
             cetak.spasi(1);
             System.out.println(
                     "#-------------------------------------------------------------------------------------------------------------#");
@@ -636,5 +639,326 @@ public class fitur {
 
         System.out.println(cetak.ANSI_RED_BG + "DATA TIDAK DITEMUKAN" + cetak.ANSI_RESET);
         cetak.spasi(1);
+    }
+
+    /*
+     * ################# FEATURE KE 4 - HAPUS DAN EDIT DATA #################
+     */
+
+    public static void hapusEditData() throws IOException {
+        cetak.spasi(2);
+        cetak.banner2("4 - Edit Dan Hapus Data");
+        cetak.spasi(1);
+
+        System.out.println(
+                "#-------------------------------------------------------------------------------------------------------------#");
+        for (int i = 0; i < viewDataNasabah.length; i++) {
+            System.out.print(cetak.ANSI_YELLOW + viewDataNasabah[i] + cetak.ANSI_RESET);
+        }
+        cetak.spasi(1);
+        System.out.println(
+                "#-------------------------------------------------------------------------------------------------------------#");
+        for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+            System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
+
+                    + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t" + cache.Nnama.elementAt(i)
+                    + "\t" + cache.Ntelp.elementAt(i)
+                    + "\t" + cache.Nemail.elementAt(i).substring(0, 10) + "...\t" + cache.Nsaldo.elementAt(i) + "\t"
+                    + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+        }
+        System.out.println(
+                "#-------------------------------------------------------------------------------------------------------------#");
+        // cetak.spasi(1);
+        System.out.print("Pilih ID Nasabah untuk di Edit [0 = Back] >");
+        input = main.sc.nextInt();
+        if (input == 0) {
+            mainMenu();
+        }
+        if (input > cache.Nnomorktp.size()) {
+            input = 0;
+            System.out.println(cetak.ANSI_RED_BG + "Index tidak di temukan!" + cetak.ANSI_RESET);
+            hapusEditData();
+        } else if ((input - 1) > cache.Nnorek.size() || (input - 1) < 0) {
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_RED_BG + "Data tidak ditemukan!" + cetak.ANSI_RESET);
+            hapusEditData();
+        } else {
+            hapusEditData2();
+        }
+        mainMenu();
+    }
+
+    public static void hapusEditData2() throws IOException {
+        inputString = "";
+        input2 = 0;
+        do {
+            cetak.spasi(2);
+            cetak.banner2(" X - Penggantian Data Nasabah No.rek - " + cache.Nnorek.elementAt(input - 1)
+                    + " " + cache.Nnama.elementAt(input - 1));
+            cetak.spasi(1);
+            System.out.println(
+                    "#-------------------------------------------------------------------------------------------------------------#");
+            System.out.println(cetak.ANSI_YELLOW + "#### Data diri" + cetak.ANSI_RESET);
+            System.out.println(cetak.ANSI_RED + "[1]" + cetak.ANSI_RESET + " - Nomor identitas\t\t\t: "
+                    + cache.Nnomorktp.elementAt(input - 1));
+            System.out.println(
+                    cetak.ANSI_GREEN + "[2]" + cetak.ANSI_RESET + " - Nama [Depan & Belakang]\t\t: "
+                            + cache.Nnama.elementAt(input - 1));
+            System.out.println(
+                    cetak.ANSI_GREEN + "[3]" + cetak.ANSI_RESET + " - Alamat sesuai identitas\t\t: "
+                            + cache.Nalamat.elementAt(input - 1));
+            System.out.println(cetak.ANSI_RED + "[4]" + cetak.ANSI_RESET + " - Jenis kelamin (L/P)\t\t: "
+                    + cache.Ngender.elementAt(input - 1));
+            System.out.println(cetak.ANSI_GREEN + "[5]" + cetak.ANSI_RESET + " - Agama\t\t\t\t: "
+                    + cache.Nagama.elementAt(input - 1));
+            System.out.println(cetak.ANSI_RED + "[6]" + cetak.ANSI_RESET + " - Tanggal lahir [DD/MM/YYYY]\t: "
+                    + cache.Nbirthdate.elementAt(input - 1));
+
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Tambahan" + cetak.ANSI_RESET);
+            System.out.println(cetak.ANSI_GREEN + "[7]" + cetak.ANSI_RESET + " - Nomor telepon\t\t\t: "
+                    + cache.Ntelp.elementAt(input - 1));
+            System.out.println(cetak.ANSI_RED + "[8]" + cetak.ANSI_RESET + " - Nama ibu kandung\t\t\t: "
+                    + cache.NibuKandung.elementAt(input - 1));
+            System.out.println(cetak.ANSI_GREEN + "[9]" + cetak.ANSI_RESET + " - email\t\t\t\t: "
+                    + cache.Nemail.elementAt(input - 1));
+
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Pekerjaan" + cetak.ANSI_RESET);
+            System.out.println(cetak.ANSI_GREEN + "[10]" + cetak.ANSI_RESET + " - Pekerjaan\t\t\t: "
+                    + cache.Npekerjaan.elementAt(input - 1));
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Informasi Keuangan & Keamanan" + cetak.ANSI_RESET);
+            if (!viewpin) {
+                System.out.println(cetak.ANSI_GREEN
+                        + "[11]" + cetak.ANSI_RESET + " - Nomor Pin\t\t\t: " + cetak.ANSI_CYAN
+                        + cache.Npin.elementAt(input - 1).substring(0, 1) + "*****" + cetak.ANSI_RESET);
+            }
+            System.out.println("Nomor Rekening\t\t\t\t: " + cetak.ANSI_CYAN + cache.Nnorek.elementAt(input - 1)
+                    + cetak.ANSI_RESET);
+            System.out.println(
+                    "Jumlah Saldo\t\t\t\t: " + cetak.ANSI_CYAN + cache.Nsaldo.elementAt(input - 1) + cetak.ANSI_RESET);
+            System.out.println(
+                    "#-------------------------------------------------------------------------------------------------------------#");
+            System.out.print(
+                    "Pilih data yang ingin di ganti" + cetak.ANSI_YELLOW
+                            + " [0 = Back || 1 = Back to Main Menu]>" + cetak.ANSI_RESET);
+            input2 = main.sc.nextInt();
+            String temp = Integer.toString(input2);
+            if (input2 == 0) {
+                viewpin = false;
+                inputString = "";
+                hapusEditData();
+            } else if (input2 > 0 && input2 < 12) {
+                gantiData();
+            } else {
+                viewpin = false;
+                System.out.println(cetak.ANSI_RED_BG + "Inputan Salah!" + cetak.ANSI_RESET);
+                inputString = "";
+            }
+            cetak.spasi(1);
+        } while (true);
+    }
+
+    public static void gantiData() throws IOException {
+        switch (input2) {
+            case 1: // KTP
+                cetak.spasi(2);
+                System.out.println(cetak.ANSI_RED_BG + "Nomor KTP tidak bisa diganti!" + cetak.ANSI_RESET);
+                hapusEditData2();
+                break;
+
+            case 2: // NAMA
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti data Nama [0 = Back] || Tidak bisa di hapus"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Nama Lama (Depan & Belakang) : " + cache.Nnama.elementAt(input - 1));
+                    System.out.print("Nama Baru (Depan & Belakang) [Min 7 , Max 16] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (!inputString.equals("") && inputString.length() < 16 && inputString.length() > 6
+                            && !inputString.matches("[0-9]+")) {
+                        cache.Nnama.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+
+            case 3:// ALAMAT
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti data Alamat [0 = Back] || Tidak bisa di hapus"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Alamat Lama : " + cache.Nalamat.elementAt(input - 1));
+                    System.out.print("Alamat Baru [Min 7] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (inputString.length() > 6) {
+                        cache.Nalamat.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+
+            case 4: // GENDER
+                cetak.spasi(2);
+                System.out.println(cetak.ANSI_RED_BG + "Gender tidak bisa diganti!" + cetak.ANSI_RESET);
+                hapusEditData2();
+                break;
+
+            case 5: // AGAMA
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti data Agama [0 = Back] || Tidak bisa di hapus"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Agama Lama : " + cache.Nagama.elementAt(input - 1));
+                    System.out.print("Agama Baru [Min 5] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (inputString.length() >= 5 && !inputString.equals("")) {
+                        cache.Nagama.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+
+            case 6:
+                cetak.spasi(2);
+                System.out.println(cetak.ANSI_RED_BG + "Tanggal Lahir tidak bisa diganti!" + cetak.ANSI_RESET);
+                hapusEditData2();
+                break;
+
+            case 7: // TELP
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti data Telepon [0 = Back] || Tidak bisa di hapus"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Telp Lama : " + cache.Ntelp.elementAt(input - 1));
+                    System.out.print("Telp Baru [Min 8] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (inputString.length() >= 8 && !inputString.matches("[a-zA-Z_]+")
+                            && inputString.length() < 14 && !inputString.equals("")) {
+                        cache.Ntelp.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+                break;
+
+            case 8: // IBU KANDUNG
+                cetak.spasi(2);
+                System.out.println(cetak.ANSI_RED_BG + "Nama Ibu Kandung tidak bisa diganti!" + cetak.ANSI_RESET);
+                hapusEditData2();
+                break;
+
+            case 9: // EMAIL
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti data Email [0 = Back || HAPUS = hapus data]"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Email Lama : " + cache.Nemail.elementAt(input - 1));
+                    System.out.print("Email Baru [Min 8] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equalsIgnoreCase("HAPUS")) {
+                        cache.Nemail.set((input - 1), "-");
+                        hapusEditData2();
+                    }
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (!inputString.equals("") && inputString.length() >= 8) {
+                        cache.Nemail.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+
+            case 10: // PEKERJAAN
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti data Pekerjaan [0 = Back || HAPUS = hapus data]"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Email Lama : " + cache.Npekerjaan.elementAt(input - 1));
+                    System.out.print("Email Baru [Min 4] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equalsIgnoreCase("HAPUS")) {
+                        cache.Npekerjaan.set((input - 1), "-");
+                        hapusEditData2();
+                    }
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (!inputString.equals("") && inputString.length() >= 4) {
+                        cache.Npekerjaan.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+
+            case 11:
+                do {
+                    cetak.spasi(2);
+                    System.out.println(cetak.ANSI_YELLOW + "#### Ganti PIN [0 = Back] || Tidak bisa di hapus"
+                            + cetak.ANSI_RESET);
+                    System.out.println("Pin Lama : " + cache.Npin.elementAt(input - 1));
+                    System.out.print("Pin Baru [6 DIGIT] : ");
+                    inputString = main.br.readLine();
+                    if (inputString.equals("0")) {
+                        hapusEditData2();
+                        break;
+                    } else if (inputString.length() == 6 && !inputString.matches("[a-zA-Z_]+")) {
+                        cache.Npin.set((input - 1), inputString);
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "PENGGANTIAN DATA BERHASIL!" + cetak.ANSI_RESET);
+                        hapusEditData2();
+                        break;
+                    } else {
+                        cetak.spasi(1);
+                        System.out.println(cetak.ANSI_GREEN_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+                break;
+        }
+
     }
 }

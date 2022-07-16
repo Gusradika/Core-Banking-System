@@ -2,6 +2,8 @@ import java.util.*;
 
 public class cache {
 
+    public static String kodeRahasia = "21410100039";
+
     public static int rangeMinNorek = 1000, rangeMaxNorek = 9999;
     public static Random random = new Random();
 
@@ -12,8 +14,8 @@ public class cache {
     public static Vector<String> Vector_dataAdminUserPass = new Vector<String>();
 
     // Cache Data Nasabah 1 2 3 4 5 6 7 8
-    private static String[] SNnomorKtp = { "2141010039", "4521010022", "2251010033", "3344010010", "0101338902",
-            "0941010002", "01010100050", "2001410022" };
+    private static String[] SNnomorKtp = { "21410100039", "45210100022", "22510100033", "33440100010", "01013389002",
+            "09410100002", "01010100005", "20014100022" };
     private static String[] SNnama = { "Aditya kesuma", "Ahmad Dhani", "Rudi Salim", "Cheryl Kalya", "Anjayani Vikar",
             "Natasha Daliman", "Putri Darma", "Nike Ardila" };
     private static String[] SNalamat = { "Jl.Bhayangkara B14 RT.11 RW.02", "Jl.Astungkara Raya 9 RT.01 RW.02",
@@ -39,6 +41,12 @@ public class cache {
     public static String[] SNcreateDate = { "16/07/2022", "04/05/2014", "13/02/1999", "11/08/2013", "01/01/2000",
             "15/05/1989", "07/12/2019", "03/03/2015" };
 
+    public static String[] SNnopin = { "000000", "898989", "123412", "098765", "556611", "772200", "676721", "232323" };
+    public static String[] SNnorek = { "21410039", "99998888", "12344321", "22346767", "55445544", "89011000",
+            "56782022", "88887777" };
+
+    public static int[] SNsaldo = { 150000, 2000000, 300000, 450000, 1500000, 600000, 780000, 100000 };
+
     // Cache data nasabah
     public static Vector<String> Nnomorktp = new Vector<String>();
     public static Vector<String> Nnama = new Vector<String>();
@@ -58,6 +66,8 @@ public class cache {
 
     public static Vector<String> Npin = new Vector<String>();
     public static Vector<String> Nnorek = new Vector<String>();
+
+    public static Vector<Integer> Nsaldo = new Vector<Integer>();
 
     public static void allCache() {
         dataAdminVector();
@@ -83,6 +93,13 @@ public class cache {
             // Data Pekerjaan
             Npekerjaan.add(SNpekerjaan[i]);
             NcreateDate.add(SNcreateDate[i]);
+
+            // Data No Pin & No rek
+            Nnorek.add(SNnorek[i]);
+            Npin.add(SNnopin[i]);
+
+            // Data saldo
+            Nsaldo.add(SNsaldo[i]);
         }
     }
 

@@ -4,7 +4,8 @@ import java.text.*;
 
 public class fitur {
 
-    public static int input = 0;
+    public static int input = 0, setoran = 0;
+    private static boolean viewpin = false;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
     private static boolean parameterNotOk = true;
@@ -12,8 +13,15 @@ public class fitur {
     public static SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
     public static Date date = new Date();
 
+    // Utk Fitur 2, 3
+    public static String[] viewDataNasabah = { "  ID\t", "NO.REKENING\t", "NO KTP\t\t", "NAMA\t\t", "TELP\t\t",
+            "EMAIL\t\t",
+            "SALDO\t", "DATE CREATED" };
+
     // login UI
     public static void mainMenu() throws IOException {
+        inputString = "";
+        input = 0;
         do {
             cetak.spasi(2);
             // "Core Banking System // Pt.Bank Indivo Central" + cetak.ANSI_RESET + " || " +
@@ -42,6 +50,9 @@ public class fitur {
                     registNasabah();
                     break;
 
+                case 2:
+                    viewDataNasabah();
+                    break;
             }
         } while (true);
 
@@ -60,9 +71,14 @@ public class fitur {
      */
 
     public static void registNasabah() throws IOException {
-
+        inputString = "";
+        input = 0;
         cetak.spasi(2);
         cetak.banner2("1 - Registrasi Nasabah");
+        System.out.println(cetak.ANSI_CYAN
+                + "Mohon untuk menyiapkan KTP,KK,dan data diri lainya serta uang 50.000 guna memperlancar Proses Registrasi, Terimakasih :)"
+                + cetak.ANSI_RESET);
+        cetak.spasi(1);
         System.out.println("Silahkan mengisi form untuk melakukan Registrasi" + cetak.ANSI_CYAN
                 + " [0 = Cancel | -help = Guide mengisi]" + cetak.ANSI_RESET);
         cetak.spasi(1);
@@ -231,6 +247,14 @@ public class fitur {
                 System.out.println("PIN yang baru : " + cetak.ANSI_YELLOW_BG + pin + cetak.ANSI_RESET);
                 break;
             } while (true);
+            do {
+                System.out.print("Masukan Setoran Awal [Minimal 50000] : ");
+                setoran = main.sc.nextInt();
+                if (setoran >= 50000) {
+                    break;
+                }
+                System.out.println(cetak.ANSI_RED_BG + "Jumlah Minim tidak terpenuhi" + cetak.ANSI_RESET);
+            } while (true);
             cetak.spasi(1);
             System.out.println(cetak.ANSI_GREEN_BG + "Selamat!, Registrasi Rekening anda Berhasil!" + cetak.ANSI_RESET);
             dataAccepted();
@@ -253,6 +277,7 @@ public class fitur {
         cache.Npin.add(pin);
         cache.Nnorek.add(norek);
         cache.NcreateDate.add(createDate);
+        cache.Nsaldo.add(setoran);
         ktp = "";
         nama = "";
         alamat = "";
@@ -266,6 +291,7 @@ public class fitur {
         pin = "";
         norek = "";
         createDate = "";
+        setoran = 0;
         System.out.println(cetak.ANSI_GREEN_BG + "SUKSES & Now Exiting..." + cetak.ANSI_RESET);
         mainMenu();
     }
@@ -290,6 +316,7 @@ public class fitur {
             pin = "";
             norek = "";
             createDate = "";
+            setoran = 0;
 
             // Tambahkan Debug Mode disini
             System.out.println(cetak.ANSI_RED_BG + "Canceled" + cetak.ANSI_RESET);
@@ -318,6 +345,7 @@ public class fitur {
             createDate = "";
             System.out.println(cetak.ANSI_RED_BG + "Rubah Data" + cetak.ANSI_RESET);
             inputString = "";
+            setoran = 0;
             registNasabah();
         }
     }
@@ -429,5 +457,112 @@ public class fitur {
 
         if (parameterNotOk) {
         }
+    }
+
+    /*
+     * ################# FEATURE KE 2 - VIEW DATA NASABAH #################
+     */
+
+    public static void viewDataNasabah() throws IOException {
+        cetak.spasi(2);
+        cetak.banner2("2 - View Data Nasabah");
+        cetak.spasi(1);
+        System.out.println(
+                "#-------------------------------------------------------------------------------------------------------------#");
+        for (int i = 0; i < viewDataNasabah.length; i++) {
+            System.out.print(cetak.ANSI_YELLOW + viewDataNasabah[i] + cetak.ANSI_RESET);
+        }
+        cetak.spasi(1);
+        System.out.println(
+                "#-------------------------------------------------------------------------------------------------------------#");
+        for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+            System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
+
+                    + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t" + cache.Nnama.elementAt(i)
+                    + "\t" + cache.Ntelp.elementAt(i)
+                    + "\t" + cache.Nemail.elementAt(i).substring(0, 10) + "...\t" + cache.Nsaldo.elementAt(i) + "\t"
+                    + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+        }
+        System.out.println(
+                "#-------------------------------------------------------------------------------------------------------------#");
+        // cetak.spasi(1);
+        System.out.print("Pilih ID Nasabah untuk di View [0 = Back] >");
+        input = main.sc.nextInt();
+        cekInputanForNasabah();
+    }
+
+    public static void cekInputanForNasabah() throws IOException {
+        if (input == 0) {
+            mainMenu();
+        } else if ((input - 1) > cache.Nnorek.size() || (input - 1) < 0) {
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_RED_BG + "Data tidak ditemukan!" + cetak.ANSI_RESET);
+            viewDataNasabah();
+        } else {
+            cetakInfoNasabah();
+        }
+        mainMenu();
+    }
+
+    public static void cetakInfoNasabah() throws IOException {
+        do {
+            cetak.spasi(2);
+            cetak.banner2(" 2 - Informasi Seputar Nasabah No.rek - " + cache.Nnorek.elementAt(input - 1));
+            cetak.spasi(1);
+            System.out.println(
+                    "#-------------------------------------------------------------------------------------------------------------#");
+            System.out.println(cetak.ANSI_YELLOW + "#### Data diri" + cetak.ANSI_RESET);
+            System.out.println("Nomor identitas\t\t\t: " + cache.Nnomorktp.elementAt(input - 1));
+            System.out.println("Nama [Depan & Belakang]\t\t: " + cache.Nnama.elementAt(input - 1));
+            System.out.println("Alamat sesuai identitas\t\t: " + cache.Nalamat.elementAt(input - 1));
+            System.out.println("Jenis kelamin (L/P)\t\t: " + cache.Ngender.elementAt(input - 1));
+            System.out.println("Agama\t\t\t\t: " + cache.Nagama.elementAt(input - 1));
+            System.out.println("Tanggal lahir [DD/MM/YYYY]\t: " + cache.Nbirthdate.elementAt(input - 1));
+
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Tambahan" + cetak.ANSI_RESET);
+            System.out.println("Nomor telepon\t\t\t: " + cache.Ntelp.elementAt(input - 1));
+            System.out.println("Nama ibu kandung\t\t: " + cache.NibuKandung.elementAt(input - 1));
+            System.out.println("Email\t\t\t\t: " + cache.Nemail.elementAt(input - 1));
+
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Data Pekerjaan" + cetak.ANSI_RESET);
+            System.out.println("Pekerjaan\t\t\t: " + cache.Npekerjaan.elementAt(input - 1));
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_YELLOW + "#### Informasi Keuangan & Keamanan" + cetak.ANSI_RESET);
+            if (!viewpin) {
+                System.out.println("Nomor Pin\t\t\t: " + cetak.ANSI_CYAN
+                        + cache.Npin.elementAt(input - 1).substring(0, 1) + "*****" + cetak.ANSI_RESET);
+            } else if (viewpin) {
+                System.out.println("Nomor Pin\t\t\t: " + cetak.ANSI_CYAN
+                        + cache.Npin.elementAt(input - 1)
+                        + cetak.ANSI_RESET);
+            }
+
+            System.out.println("Nomor Rekening\t\t\t: " + cetak.ANSI_CYAN + cache.Nnorek.elementAt(input - 1)
+                    + cetak.ANSI_RESET);
+            System.out.println(
+                    "Jumlah Saldo\t\t\t: " + cetak.ANSI_CYAN + cache.Nsaldo.elementAt(input - 1) + cetak.ANSI_RESET);
+            System.out.println(
+                    "#-------------------------------------------------------------------------------------------------------------#");
+            System.out.print("Masukan Kode Rahasia Untuk Membaca Nomor Pin [0 = Back]>");
+            inputString = main.br.readLine();
+            if (inputString.equals(cache.kodeRahasia)) {
+                viewpin = true;
+                System.out.println(cetak.ANSI_GREEN_BG + "KODE RAHASIA BENAR!" + cetak.ANSI_RESET);
+                inputString = "";
+                cetakInfoNasabah();
+            } else if (inputString.equals("0")) {
+                viewpin = false;
+                inputString = "";
+                viewDataNasabah();
+            } else {
+                viewpin = false;
+                System.out.println(cetak.ANSI_RED_BG + "Inputan Salah!" + cetak.ANSI_RESET);
+                inputString = "";
+            }
+            cetak.spasi(1);
+        } while (true);
+
     }
 }

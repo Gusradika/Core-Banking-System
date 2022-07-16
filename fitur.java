@@ -5,7 +5,7 @@ public class fitur {
 
     public static int input = 0;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
-            ibukandung = "", email = "", pekerjaan = "";
+            ibukandung = "", email = "", pekerjaan = "", inputString = "";
     private static boolean parameterNotOk = true;
 
     // login UI
@@ -94,35 +94,59 @@ public class fitur {
             cekInputan();
         } while (parameterNotOk);
 
-        System.out.print("Agama\t\t\t\t: ");
-        agama = main.br.readLine();
-        registNasabahCancel();
-        cekInputan();
+        do {
+            System.out.print("Agama\t\t\t\t: ");
+            agama = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
 
-        System.out.print("Tanggal lahir [DD/MM/YYYY]\t: ");
-        birthdate = main.br.readLine();
-        registNasabahCancel();
-        cekInputan();
+        do {
+            System.out.print("Tanggal lahir [DD/MM/YYYY]\t: ");
+            birthdate = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
 
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN + "#### Data Tambahan ####" + cetak.ANSI_RESET);
-        System.out.print("Nomor telepon\t\t\t: ");
-        telp = main.br.readLine();
-        registNasabahCancel();
-        System.out.print("Nama ibu kandung\t\t: ");
-        ibukandung = main.br.readLine();
-        registNasabahCancel();
-        System.out.print("Email\t\t\t\t: ");
-        email = main.br.readLine();
-        registNasabahCancel();
+        do {
+            System.out.print("Nomor telepon\t\t\t: ");
+            telp = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
+
+        do {
+            System.out.print("Nama ibu kandung\t\t: ");
+            ibukandung = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
+
+        do {
+            System.out.print("Email\t\t\t\t: ");
+            email = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
 
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN + "#### Data Pekerjaan ####" + cetak.ANSI_RESET);
-        System.out.print("Pekerjaan\t\t\t: ");
-        pekerjaan = main.br.readLine();
-        registNasabahCancel();
+        do {
+            System.out.print("Pekerjaan\t\t\t: ");
+            pekerjaan = main.br.readLine();
+            registNasabahCancel();
+            cekInputan();
+        } while (parameterNotOk);
+
         // PRINT SEMUA DATA YANG TELAH DI INPUT LALU, apakah anda yakin untuk
         // melanjutkan?
+
+        if (!parameterNotOk) {
+
+            System.out.println("");
+        }
 
     }
 
@@ -154,6 +178,20 @@ public class fitur {
                 || pekerjaan.equals("-help")) {
             // Buat Sistem Seperti OWSS dimana kita dapat memberikan parameter huruf di
             // setiap baris untuk guide.
+        } else if (inputString.equals("0")) {
+            cetak.spasi(2);
+            ktp = "";
+            nama = "";
+            alamat = "";
+            gender = "";
+            agama = "";
+            birthdate = "";
+            telp = "";
+            ibukandung = "";
+            email = "";
+            pekerjaan = "";
+            System.out.println(cetak.ANSI_RED_BG + "Rubah Data" + cetak.ANSI_RESET);
+            registNasabah();
         }
     }
 
@@ -174,7 +212,7 @@ public class fitur {
             parameterNotOk = false;
         } else if (!nama.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
-                    + "Masukan Nama yang valid! [Max 16 & Min 6]"
+                    + "Masukan Nama yang valid! [Max 16 & Min 6 & bukan huruf]"
                     + cetak.ANSI_RESET);
             parameterNotOk = true;
         }
@@ -200,16 +238,71 @@ public class fitur {
         }
 
         // cek inputan agama
-        if (agama.length() >= 5) {
+        if (agama.length() >= 5 && !agama.equals("")) {
             parameterNotOk = false;
-        } else if (agama.length() < 5) {
+        } else if (agama.length() < 5 && !agama.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
                     + "Masukan nama Agama yang valid [Min 5]"
                     + cetak.ANSI_RESET);
             parameterNotOk = true;
         }
 
-        // cek inputan birthdate
+        // cek inputan birthdate manfaatkan String to Integer if substr pertama 0 maka
+        // cut dengan char at nomor 2 sampai habis di masukan ke data yang baru
+        // (replace)
+        if (birthdate.length() == 8 && !birthdate.matches("[a-zA-Z_]+") && !birthdate.equals("")) {
+            int birthdateInt;
+            String birthdateTemp;
+            parameterNotOk = false;
+            birthdateTemp = birthdate.substring(1, birthdate.length());
+            birthdateInt = Integer.parseInt(birthdateTemp);
+        } else if (!birthdate.equals("")) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan Birthdate yang valid [DD/MM/YYYY]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
+
+        // cek inputan notelp
+        if (telp.length() >= 8 && !telp.matches("[a-zA-Z_]+") && telp.length() < 14 && !telp.equals("")) {
+            parameterNotOk = false;
+        } else if (!telp.equals("")) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan NoTelp yang valid [min = 8 & bukan huruf & max = 13]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
+
+        // cek inputan ibu kandung
+        if (!ibukandung.equals("") && ibukandung.length() < 16 && ibukandung.length() >= 6
+                && !ibukandung.matches("[0-9]+")) {
+            parameterNotOk = false;
+        } else if (!ibukandung.equals("")) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan Nama yang valid! [Max 16 & Min 6 & bukan huruf]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
+
+        // cek inputan email
+        if (!email.equals("") && email.length() >= 8) {
+            parameterNotOk = false;
+        } else if (!email.equals("")) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan Email yang valid! [Min = 8]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
+
+        // cek inputan pekerjaan
+        if (!pekerjaan.equals("") && pekerjaan.length() > 4 && !pekerjaan.matches("[0-9]+")) {
+            parameterNotOk = false;
+        } else if (!pekerjaan.equals("")) {
+            System.out.println(cetak.ANSI_RED_BG
+                    + "Masukan Data Pekerjaan yang valid! [Min = 5 & bukan angka]"
+                    + cetak.ANSI_RESET);
+            parameterNotOk = true;
+        }
 
         if (parameterNotOk) {
         }

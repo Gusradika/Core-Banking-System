@@ -13,8 +13,10 @@ public class main {
 
     public static void main(String[] args) throws IOException {
         // Masuk ke Login Menu
-        // String a = "Natasha Daliman";
+        // String a = "Natasha Daliman", b;
+        // b = a.substring(0,a.)
         // System.out.println(a.length());
+
         cache.allCache();
         loginMenu();
     }

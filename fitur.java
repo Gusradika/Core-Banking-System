@@ -33,7 +33,7 @@ public class fitur {
                     "#########################################################################################");
             System.out.println(
                     cetak.ANSI_CYAN + "LOGGED IN AS" + cetak.ANSI_RESET + " " + cache.loginId[main.loginAlias]
-                            + cetak.ANSI_CYAN + " Time : " + formatter1.format(date) + cetak.ANSI_RESET);
+                            + cetak.ANSI_CYAN + " Time : " + cetak.ANSI_RESET + formatter1.format(date));
             cetak.spasi(1);
             System.out.println(
                     "[1] - Registrasi Nasabah\n[2] - View Data Nasabah\n[3] - Pencarian Data Nasabah\n[4] - Hapus Edit Data Nasabah\n[5] - Proses Setoran\n[6] - Proses Penarikan\n[7] - Cetak Buku\n[8] - Transfer\n[9] - Penutupan Rekening");
@@ -54,8 +54,8 @@ public class fitur {
                     viewDataNasabah();
                     break;
 
-                case 11:
-
+                case 3:
+                    pencarianDataNasabah();
                     break;
             }
         } while (true);
@@ -192,9 +192,9 @@ public class fitur {
             cetak.spasi(1);
 
             do {
-                System.out.print(cetak.ANSI_YELLOW
-                        + "Apakah data anda sudah benar?" + cetak.ANSI_RESET
-                        + " [0 = Rubah data / Back || 1 = Sudah Benar] >");
+                System.out.print("Apakah data anda sudah benar?" + cetak.ANSI_YELLOW
+                        +
+                        " [0 = Rubah data / Back || 1 = Sudah Benar] >" + cetak.ANSI_RESET);
                 inputString = main.br.readLine();
                 if (inputString.equals("0")) {
                     registNasabahCancel();
@@ -516,7 +516,8 @@ public class fitur {
     public static void cetakInfoNasabah() throws IOException {
         do {
             cetak.spasi(2);
-            cetak.banner2(" 2 - Informasi Seputar Nasabah No.rek - " + cache.Nnorek.elementAt(input - 1));
+            cetak.banner2(" X - Informasi Seputar Nasabah No.rek - " + cache.Nnorek.elementAt(input - 1)
+                    + cache.Nnama.elementAt(input - 1));
             cetak.spasi(1);
             System.out.println(
                     "#-------------------------------------------------------------------------------------------------------------#");
@@ -554,7 +555,9 @@ public class fitur {
                     "Jumlah Saldo\t\t\t: " + cetak.ANSI_CYAN + cache.Nsaldo.elementAt(input - 1) + cetak.ANSI_RESET);
             System.out.println(
                     "#-------------------------------------------------------------------------------------------------------------#");
-            System.out.print("Masukan Kode Rahasia Untuk Membaca Nomor Pin [0 = Back]>");
+            System.out.print(
+                    "Masukan Kode Rahasia Untuk Membaca Nomor Pin " + cetak.ANSI_YELLOW
+                            + " [0 = Back to View Nasabah || 1 = Back to Main Menu]>" + cetak.ANSI_RESET);
             inputString = main.br.readLine();
             if (inputString.equals(cache.kodeRahasia)) {
                 viewpin = true;
@@ -565,6 +568,10 @@ public class fitur {
                 viewpin = false;
                 inputString = "";
                 viewDataNasabah();
+            } else if (inputString.equals("1")) {
+                viewpin = false;
+                inputString = "";
+                mainMenu();
             } else {
                 viewpin = false;
                 System.out.println(cetak.ANSI_RED_BG + "Inputan Salah!" + cetak.ANSI_RESET);
@@ -572,6 +579,62 @@ public class fitur {
             }
             cetak.spasi(1);
         } while (true);
+    }
 
+    /*
+     * ################# FEATURE KE 3 - PENCARIAN DATA NASABAH #################
+     */
+
+    public static void pencarianDataNasabah() throws IOException {
+        cetak.spasi(2);
+        cetak.banner2("3 - Pencarian Data Nasabah");
+        cetak.spasi(1);
+
+        do {
+            System.out.print("masukan nomor rekening " + cetak.ANSI_YELLOW + " [8 Digit] " + cetak.ANSI_RESET
+                    + " / masukan nomor KTP" + cetak.ANSI_YELLOW + " [11 Digit] [0 = Back] >" + cetak.ANSI_RESET);
+            inputString = main.br.readLine();
+            if (inputString.equals("0")) {
+                mainMenu();
+            }
+            if (!inputString.equals("") && inputString.length() == 8) {
+                input = 1;
+                searchByInputan();
+            } else if (!inputString.equals("") && inputString.length() == 11) {
+                input = 2;
+                searchByInputan();
+            } else {
+                System.out.println(cetak.ANSI_RED_BG + "Inputan Salah!" + cetak.ANSI_RESET);
+                cetak.spasi(1);
+
+            }
+        } while (true);
+    }
+
+    public static void searchByInputan() throws IOException {
+        switch (input) {
+            case 1:
+                for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                    if (inputString.equals(cache.Nnorek.elementAt(i))) {
+                        input = i + 1;
+                        System.out.println(cetak.ANSI_GREEN_BG + "DATA DITEMUKAN" + cetak.ANSI_RESET);
+                        cetakInfoNasabah();
+                    }
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                    if (inputString.equals(cache.Nnomorktp.elementAt(i))) {
+                        System.out.println(cetak.ANSI_GREEN_BG + "DATA DITEMUKAN" + cetak.ANSI_RESET);
+                        input = i + 1;
+                        cetakInfoNasabah();
+                    }
+                }
+                break;
+        }
+
+        System.out.println(cetak.ANSI_RED_BG + "DATA TIDAK DITEMUKAN" + cetak.ANSI_RESET);
+        cetak.spasi(1);
     }
 }

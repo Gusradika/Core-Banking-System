@@ -53,6 +53,10 @@ public class fitur {
                 case 2:
                     viewDataNasabah();
                     break;
+
+                case 11:
+
+                    break;
             }
         } while (true);
 
@@ -425,12 +429,12 @@ public class fitur {
         }
 
         // cek inputan ibu kandung
-        if (!ibukandung.equals("") && ibukandung.length() < 16 && ibukandung.length() >= 6
+        if (!ibukandung.equals("") && ibukandung.length() < 25 && ibukandung.length() >= 4
                 && !ibukandung.matches("[0-9]+")) {
             parameterNotOk = false;
         } else if (!ibukandung.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
-                    + "Masukan Nama yang valid! [Max 16 & Min 6 & bukan huruf]"
+                    + "Masukan Nama yang valid! [Max 25 & Min 4 & bukan huruf]"
                     + cetak.ANSI_RESET);
             parameterNotOk = true;
         }
@@ -488,6 +492,11 @@ public class fitur {
         // cetak.spasi(1);
         System.out.print("Pilih ID Nasabah untuk di View [0 = Back] >");
         input = main.sc.nextInt();
+        if (input > cache.Nnomorktp.size()) {
+            input = 0;
+            System.out.println(cetak.ANSI_RED_BG + "Index tidak di temukan!" + cetak.ANSI_RESET);
+            viewDataNasabah();
+        }
         cekInputanForNasabah();
     }
 

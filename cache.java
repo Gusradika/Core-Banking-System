@@ -2,6 +2,9 @@ import java.util.*;
 
 public class cache {
 
+    public static int rangeMinNorek = 1000, rangeMaxNorek = 9999;
+    public static Random random = new Random();
+
     private static String String_dataAdminUserName[] = { "1", "debug" };
     private static String String_dataAdminUserPass[] = { "1", "debug" };
     public static String[] loginId = { "Administrator", "Debugmode" };
@@ -18,7 +21,8 @@ public class cache {
             "Jl.Jendral Sudirman 1a RT.02 RW.01", "Perum Belimbing 9c RT.49 RW.09", "Perum Gatotkaca 20 RT.45 RW.02" };
     private static String[] SNgender = { "L", "L", "L", "P", "P", "P", "P", "P" };
     private static String[] SNagama = { "Islam", "Islam", "Islam", "Kristen", "Budha", "Kristen", "Islam", "Islam" };
-    public static int[] SNbirthdate = { 15092000, 20021988, 6041979, 11042001, 2931970, 15071997, 22021994, 4052000 };
+    public static String[] SNbirthdate = { "15/09/2000", "20/02/1988", "06/04/1979", "11/04/2001", "29/03/1970",
+            "15/07/1997", "22/02/1994", "04/05/2000" };
 
     // Cache Data Pendukung
     private static String[] SNibuKandung = { "Ita Indrayani", "Aisyah Purnawati", "Mega Ramayana", "Santi Sinta",
@@ -41,7 +45,7 @@ public class cache {
     public static Vector<String> Nalamat = new Vector<String>();
     public static Vector<String> Ngender = new Vector<String>();
     public static Vector<String> Nagama = new Vector<String>();
-    public static Vector<Integer> Nbirthdate = new Vector<Integer>();
+    public static Vector<String> Nbirthdate = new Vector<String>();
 
     // Cache data pendukung
     public static Vector<String> NibuKandung = new Vector<String>();
@@ -115,6 +119,18 @@ public class cache {
         String temp = "";
         temp = fitur.ktp.substring(0, 2) + fitur.telp.substring((fitur.telp.length() - 2), fitur.telp.length())
                 + fitur.ktp.substring(8, 10);
+        return temp;
+    }
+
+    public static String generateNorek() {
+        String temp = "";
+        // 1234 5678
+        for (int i = 0; i < 2; i++) {
+            int tempInt = random.nextInt(rangeMaxNorek + 1 - rangeMinNorek) + rangeMinNorek;
+            String a = Integer.toString(tempInt);
+            temp = temp + a;
+        }
+
         return temp;
     }
 

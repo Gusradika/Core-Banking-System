@@ -17,6 +17,9 @@ public class main {
         // b = a.substring(0,a.)
         // System.out.println(a.length());
 
+        // fitur.createDate = fitur.formatter2.format(fitur.date);
+        // System.out.println(fitur.createDate);
+
         cache.allCache();
         loginMenu();
     }

@@ -6,7 +6,7 @@ public class fitur {
 
     public static int input = 0;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
-            ibukandung = "", email = "", pekerjaan = "", inputString = "";
+            ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
     private static boolean parameterNotOk = true;
     public static SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public static SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -77,7 +77,7 @@ public class fitur {
 
         // NAMA
         do {
-            System.out.print("Nama sesuai identitas\t\t: ");
+            System.out.print("Nama [Depan & Belakang]\t\t: ");
             nama = main.br.readLine();
             registNasabahCancel();
             cekInputan();
@@ -154,7 +154,7 @@ public class fitur {
             cetak.spasi(1);
             System.out.println(cetak.ANSI_YELLOW + "#### Data diri     ####" + cetak.ANSI_RESET);
             System.out.println("Nomor identitas\t\t\t: " + ktp);
-            System.out.println("Nama sesuai identitas\t\t: " + nama);
+            System.out.println("Nama [Depan & Belakang]\t\t: " + nama);
             System.out.println("Alamat sesuai identitas\t\t: " + alamat);
             System.out.println("Jenis kelamin (L/P)\t\t: " + gender.toUpperCase());
             System.out.println("Agama\t\t\t\t: " + agama);
@@ -193,18 +193,81 @@ public class fitur {
                 if (inputString.equals(nama)) {
                     System.out.println(cetak.ANSI_GREEN_BG + "[Pernyataan Setuju Dibuat]" + cetak.ANSI_RESET
                             + "[DATE : " + formatter2.format(date) + "]");
+                    createDate = formatter2.format(date);
                     break;
                 } else {
                     System.out.println(cetak.ANSI_RED_BG + "Inputan Salah" + cetak.ANSI_RESET);
                 }
             } while (true);
 
+            cetak.spasi(2);
             System.out.println(cetak.ANSI_YELLOW + "#### Data Keamanan & Akses Transaksi ####" + cetak.ANSI_RESET);
-            System.out.println("PIN anda\t\t\t: " + cache.generatePin2());
-            System.out.println("Nomor Rekening\t\t\t: " + cetak.ANSI_RESET);
-
+            pin = cache.generatePin2();
+            norek = cache.generateNorek();
+            System.out
+                    .println("PIN anda\t\t\t: " + cetak.ANSI_YELLOW_BG + pin + cetak.ANSI_RESET);
+            System.out.println(
+                    "Nomor Rekening\t\t\t: " + cetak.ANSI_YELLOW_BG + norek + cetak.ANSI_RESET);
+            do {
+                System.out.print("Ingin merubah PIN? [0 = Tidak | 1 = Ya] >");
+                inputString = main.br.readLine();
+                if (inputString.equals("1")) {
+                    do {
+                        System.out.print("Masukan Pin Yang baru [6 Digit] >");
+                        pin = main.br.readLine();
+                        if (pin.length() == 6 && !pin.matches("[a-zA-Z_]+")) {
+                            break;
+                        }
+                        System.out.println(cetak.ANSI_RED_BG + "Inputan Salah!" + cetak.ANSI_RESET);
+                        cetak.spasi(1);
+                    } while (true);
+                } else if (inputString.equals("0")) {
+                    break;
+                } else {
+                    System.out.println(cetak.ANSI_RED_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    continue;
+                }
+                cetak.spasi(1);
+                System.out.println("PIN yang baru : " + cetak.ANSI_YELLOW_BG + pin + cetak.ANSI_RESET);
+                break;
+            } while (true);
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_GREEN_BG + "Selamat!, Registrasi Rekening anda Berhasil!" + cetak.ANSI_RESET);
+            dataAccepted();
+            // Pergi Setor Semua data ke Vector
         }
 
+    }
+
+    public static void dataAccepted() throws IOException {
+        cache.Nnomorktp.add(ktp);
+        cache.Nnama.add(nama);
+        cache.Nalamat.add(alamat);
+        cache.Ngender.add(gender);
+        cache.Nagama.add(agama);
+        cache.Nbirthdate.add(birthdate);
+        cache.Ntelp.add(telp);
+        cache.NibuKandung.add(ibukandung);
+        cache.Nemail.add(email);
+        cache.Npekerjaan.add(pekerjaan);
+        cache.Npin.add(pin);
+        cache.Nnorek.add(norek);
+        cache.NcreateDate.add(createDate);
+        ktp = "";
+        nama = "";
+        alamat = "";
+        gender = "";
+        agama = "";
+        birthdate = "";
+        telp = "";
+        ibukandung = "";
+        email = "";
+        pekerjaan = "";
+        pin = "";
+        norek = "";
+        createDate = "";
+        System.out.println(cetak.ANSI_GREEN_BG + "SUKSES & Now Exiting..." + cetak.ANSI_RESET);
+        mainMenu();
     }
 
     public static void registNasabahCancel() throws IOException {
@@ -224,9 +287,12 @@ public class fitur {
             ibukandung = "";
             email = "";
             pekerjaan = "";
+            pin = "";
+            norek = "";
+            createDate = "";
 
             // Tambahkan Debug Mode disini
-            System.out.println(cetak.ANSI_RED_BG + "Canceled!" + cetak.ANSI_RESET);
+            System.out.println(cetak.ANSI_RED_BG + "Canceled" + cetak.ANSI_RESET);
             mainMenu();
         } else if (ktp.equals("-help") || nama.equals("-help") || alamat.equals("-help") || gender.equals("-help")
                 || agama.equals("-help")
@@ -247,6 +313,9 @@ public class fitur {
             ibukandung = "";
             email = "";
             pekerjaan = "";
+            pin = "";
+            norek = "";
+            createDate = "";
             System.out.println(cetak.ANSI_RED_BG + "Rubah Data" + cetak.ANSI_RESET);
             inputString = "";
             registNasabah();

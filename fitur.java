@@ -4,7 +4,7 @@ import java.text.*;
 
 public class fitur {
 
-    public static int input = 0, setoran = 0, input2 = 0;
+    public static int input = 0, setoran = 0, input2 = 0, loginAlias = 0;
     private static boolean viewpin = false;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
@@ -59,6 +59,9 @@ public class fitur {
                     break;
                 case 4:
                     hapusEditData();
+                    break;
+                case 5:
+                    prosesSetoran();
                     break;
             }
         } while (true);
@@ -959,6 +962,139 @@ public class fitur {
                 } while (true);
                 break;
         }
+    }
+
+    /*
+     * ################# FEATURE KE 5 - PROSES SETORAN #################
+     * 
+     * Belum di cek Bug nya.
+     * Belum di rapikan
+     * Debug modenya belum di komen
+     * 
+     */
+
+    // Buat setoran awal pada Registrasi Nasabah untuk Setoran awalnya hingga dapat
+    // direkam dan di cetak di cetak buku
+
+    public static void prosesSetoran() throws IOException {
+        do {
+            cetak.spasi(2);
+            cetak.banner2("5 - Proses Setoran");
+            cetak.spasi(1);
+            System.out.print("Masukan Nomor Rekening [0 = Back] : ");
+            inputString = main.br.readLine();
+            if (inputString.equals("0")) {
+                mainMenu();
+            }
+            if (!inputString.equals("") && inputString.length() == 8) {
+                cekLengthNasabah();
+            } else {
+                cetak.spasi(1);
+                System.out.println(cetak.ANSI_RED + "Inputan Salah" + cetak.ANSI_RESET);
+            }
+        } while (true);
+    }
+
+    public static void cekLengthNasabah() throws IOException {
+        if (input == 0) {
+            mainMenu();
+        } else if ((input - 1) > cache.Nnorek.size() || (input - 1) < 0) {
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_RED_BG + "Data tidak ditemukan!" + cetak.ANSI_RESET);
+            prosesSetoran();
+        } else {
+            matchingNoRek();
+        }
+        mainMenu();
+    }
+
+    public static void matchingNoRek() throws IOException {
+        if (!inputString.equals("") && inputString.length() == 8) {
+            input = 1;
+            for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                if (inputString.equals(cache.Nnorek.elementAt(i))) {
+                    input = i + 1;
+                    System.out.println(cetak.ANSI_GREEN_BG + "DATA DITEMUKAN" + cetak.ANSI_RESET);
+                    setoranByNorek();
+                }
+            }
+        }
+    }
+
+    public static void setoranByNorek() throws IOException {
+        do {
+            cetak.spasi(2);
+            cetak.banner2(
+                    "X - Setoran Norek - " + cache.Nnorek.elementAt(input - 1) + " "
+                            + cache.Nnama.elementAt(input - 1));
+            loginAlias = input - 1;
+            cetak.spasi(1);
+            System.out.println("No Rek\t\t\t: " + cache.Nnorek.elementAt(input - 1));
+            System.out.println("Nama Pemilik Rek\t\t\t: " + cache.Nnama.elementAt(input - 1));
+            System.out.print("Masukan Jumlah Setoran\t\t\t [0 = Back] : ");
+
+            input = main.sc.nextInt();
+            if (input == 0) {
+                prosesSetoran();
+            }
+            if (input >= 50000) {
+                setoran = input;
+                cetak.spasi(1);
+                do {
+                    System.out.println("Apakah anda yakin? [0 = Back || 1 = Ya] >");
+                    input = main.sc.nextInt();
+                    if (input == 0) {
+                        prosesSetoran();
+                    }
+                    if (input == 1) {
+                        validatingTransaksiSetoran();
+                    } else {
+                        System.out.println(
+                                cetak.ANSI_RED_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+            } else {
+                System.out
+                        .println(cetak.ANSI_RED_BG + "Inputan dibawah Jumlah minimum! [Min 50000]" + cetak.ANSI_RESET);
+            }
+        } while (true);
+    }
+
+    public static void validatingTransaksiSetoran() throws IOException {
+        cache.Rtipe.add('K');
+        cache.Rjumlah.add(setoran);
+        int temp = setoran + cache.Nsaldo.elementAt(loginAlias);
+        cache.Nsaldo.set(loginAlias, temp);
+        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
+        cache.Rdate.add(formatter2.format(date));
+        cache.Rnama.add("Setoran Tunai");
+        cache.Rvalidator.add(loginAlias);
+        cetak.spasi(1);
+        System.out.println(cetak.ANSI_GREEN_BG + "SETORAN BERHASIL" + cetak.ANSI_RESET);
+        loginAlias = 0;
+        temp = 0;
+        for (int i = 0; i < cache.Rtipe.size(); i++) {
+            System.out.println(cache.Rtipe.elementAt(i));
+            System.out.println(cache.Rjumlah.elementAt(i));
+            System.out.println(cache.Rtotal.elementAt(i));
+            System.out.println(cache.Rdate.elementAt(i));
+            System.out.println(cache.Rnama.elementAt(i));
+            System.out.println(cache.Rvalidator.elementAt(i));
+        }
+        mainMenu();
+    }
+
+    /*
+     * ################# FEATURE KE 6 - PROSES PENARIKAN #################
+     * 
+     */
+
+    /*
+     * ################# FEATURE KE 7 - CETAK BUKU #################
+     * 
+     */
+
+    public static void cetakBuku() {
 
     }
 }

@@ -6,6 +6,8 @@ import java.io.*;
 
 public class main {
 
+    public static int a = 0;
+    public static Integer b = 1;
     public static Scanner sc = new Scanner(System.in);
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static int loginAlias = 0, loginTry = 0;
@@ -21,6 +23,9 @@ public class main {
         // System.out.println(fitur.createDate);
 
         cache.allCache();
+        System.out.println(cache.Nnomorktp);
+        System.out.println(cache.Nnomorktp.size());
+        System.out.println(cache.Nnomorktp.elementAt(0).length());
         loginMenu();
     }
 

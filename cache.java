@@ -69,6 +69,16 @@ public class cache {
 
     public static Vector<Integer> Nsaldo = new Vector<Integer>();
 
+    // Rekaman Transaksi
+    public static Vector<Character> Rtipe = new Vector<Character>();
+    public static Vector<Integer> Rjumlah = new Vector<Integer>();
+    public static Vector<Integer> Rtotal = new Vector<Integer>();
+    public static Vector<String> Rdate = new Vector<String>();
+    public static Vector<String> Rnama = new Vector<String>();
+
+    // Validator Rekaman Transaksi
+    public static Vector<Integer> Rvalidator = new Vector<Integer>();
+
     public static void allCache() {
         dataAdminVector();
         dataCacheNasabah();

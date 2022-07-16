@@ -5,12 +5,13 @@ import java.text.*;
 public class fitur {
 
     public static int input = 0, setoran = 0, input2 = 0, loginAlias = 0;
-    private static boolean viewpin = false;
+    private static boolean viewpin = false, pernahSetor = true;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
     private static boolean parameterNotOk = true;
     public static SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public static SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+    public static SimpleDateFormat formatter3 = new SimpleDateFormat("dd/MM HH:mm");
     public static Date date = new Date();
 
     // Utk Fitur 2, 3
@@ -62,6 +63,9 @@ public class fitur {
                     break;
                 case 5:
                     prosesSetoran();
+                    break;
+                case 7:
+                    cetakBuku();
                     break;
             }
         } while (true);
@@ -261,6 +265,14 @@ public class fitur {
                 System.out.print("Masukan Setoran Awal [Minimal 50000] : ");
                 setoran = main.sc.nextInt();
                 if (setoran >= 50000) {
+                    cache.Rtipe.add('K');
+                    cache.Rjumlah.add(setoran);
+                    cache.Nsaldo.add(setoran);
+                    cache.Rtotal.add(setoran);
+                    cache.Rdate.add(formatter3.format(date));
+                    cache.Rnama.add("Setoran Tunai");
+                    cache.Rvalidator.add(cache.Rvalidator.size());
+                    System.out.println(cache.Rvalidator);
                     break;
                 }
                 System.out.println(cetak.ANSI_RED_BG + "Jumlah Minim tidak terpenuhi" + cetak.ANSI_RESET);
@@ -446,11 +458,11 @@ public class fitur {
         }
 
         // cek inputan email
-        if (!email.equals("") && email.length() >= 8) {
+        if (!email.equals("") && email.length() >= 10) {
             parameterNotOk = false;
         } else if (!email.equals("")) {
             System.out.println(cetak.ANSI_RED_BG
-                    + "Masukan Email yang valid! [Min = 8]"
+                    + "Masukan Email yang valid! [Min = 10]"
                     + cetak.ANSI_RESET);
             parameterNotOk = true;
         }
@@ -1029,9 +1041,9 @@ public class fitur {
                             + cache.Nnama.elementAt(input - 1));
             loginAlias = input - 1;
             cetak.spasi(1);
-            System.out.println("No Rek\t\t\t: " + cache.Nnorek.elementAt(input - 1));
-            System.out.println("Nama Pemilik Rek\t\t\t: " + cache.Nnama.elementAt(input - 1));
-            System.out.print("Masukan Jumlah Setoran\t\t\t [0 = Back] : ");
+            System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(input - 1));
+            System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(input - 1));
+            System.out.print("Masukan Jumlah Setoran[0 = Back]\t: ");
 
             input = main.sc.nextInt();
             if (input == 0) {
@@ -1041,7 +1053,8 @@ public class fitur {
                 setoran = input;
                 cetak.spasi(1);
                 do {
-                    System.out.println("Apakah anda yakin? [0 = Back || 1 = Ya] >");
+                    System.out.print(
+                            "Apakah anda yakin?" + cetak.ANSI_YELLOW + " [0 = Back || 1 = Ya] >" + cetak.ANSI_RESET);
                     input = main.sc.nextInt();
                     if (input == 0) {
                         prosesSetoran();
@@ -1066,21 +1079,22 @@ public class fitur {
         int temp = setoran + cache.Nsaldo.elementAt(loginAlias);
         cache.Nsaldo.set(loginAlias, temp);
         cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
-        cache.Rdate.add(formatter2.format(date));
+        cache.Rdate.add(formatter3.format(date));
         cache.Rnama.add("Setoran Tunai");
         cache.Rvalidator.add(loginAlias);
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN_BG + "SETORAN BERHASIL" + cetak.ANSI_RESET);
         loginAlias = 0;
         temp = 0;
-        for (int i = 0; i < cache.Rtipe.size(); i++) {
-            System.out.println(cache.Rtipe.elementAt(i));
-            System.out.println(cache.Rjumlah.elementAt(i));
-            System.out.println(cache.Rtotal.elementAt(i));
-            System.out.println(cache.Rdate.elementAt(i));
-            System.out.println(cache.Rnama.elementAt(i));
-            System.out.println(cache.Rvalidator.elementAt(i));
-        }
+        // for (int i = 0; i < cache.Rtipe.size(); i++) {
+        // System.out.println(cache.Rtipe.elementAt(i));
+        // System.out.println(cache.Rjumlah.elementAt(i));
+        // System.out.println(cache.Rtotal.elementAt(i));
+        // System.out.println(cache.Rdate.elementAt(i));
+        // System.out.println(cache.Rnama.elementAt(i));
+        // System.out.println(cache.Rvalidator.elementAt(i));
+        // }
+        pernahSetor = true;
         mainMenu();
     }
 
@@ -1094,7 +1108,88 @@ public class fitur {
      * 
      */
 
-    public static void cetakBuku() {
+    public static void cetakBuku() throws IOException {
+        do {
+            boolean cetakBuku = false;
+            String a = "", b = "";
+            cetak.spasi(2);
+            cetak.banner2("7 - Proses Cetak Buku");
+            cetak.spasi(1);
+            System.out.print("Masukan Nomor Rekening [0 = Back] : ");
+            inputString = main.br.readLine();
+            a = inputString;
+            if (a.equals("0")) {
+                mainMenu();
+            }
+            System.out.print("Masukan PIN Rekening [0 = Back] : ");
+            inputString = main.br.readLine();
+            b = inputString;
+            if (b.equals("0")) {
+                mainMenu();
+            }
 
+            for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                if (a.equals(cache.Nnorek.elementAt(i)) && b.equals(cache.Npin.elementAt(i))) {
+                    loginAlias = i + 1;
+                    cetakBuku = true;
+                    prosesCetakBuku();
+                }
+            }
+            // if (cetakBuku) {
+            // for (int i = 0; i < cache.Rvalidator.size(); i++) {
+            // if (loginAlias == cache.Rvalidator.elementAt(i)) {
+
+            // }
+            // }
+            // }
+
+            System.out.println(cetak.ANSI_RED_BG + "NOREK/PIN SALAH" + cetak.ANSI_RESET);
+            loginAlias = 0;
+
+        } while (true);
+    }
+
+    public static void prosesCetakBuku() throws IOException {
+        int temp = 0;
+        String[] menuCetakBuku = { "NO\t", "Tgl / Jam\t\t", "Keterangan\t", "K/D\t", "Jumlah\t", "Total\t" };
+        cetak.spasi(2);
+        cetak.banner2("X - Informasi Buku Norek - " + cache.Nnorek.elementAt(loginAlias - 1) + " Pemilik : "
+                + cache.Nnama.elementAt(loginAlias - 1));
+
+        System.out.println("--------------------------------------------------------------");
+        for (int i = 0; i < menuCetakBuku.length; i++) {
+            System.out.print(cetak.ANSI_YELLOW + menuCetakBuku[i] + cetak.ANSI_RESET);
+        }
+        cetak.spasi(1);
+        System.out.println("--------------------------------------------------------------");
+        if (pernahSetor) {
+            for (int i = 0; i < cache.Rtipe.size(); i++) {
+                if (cache.Rvalidator.elementAt(i) == (loginAlias - 1)) {
+                    temp++;
+                }
+            }
+        } else {
+            System.out.println("Tidak ada data...");
+        }
+
+        if (temp >= 1) {
+            int j = 1;
+            for (int i = 0; i < cache.Rtipe.size(); i++) {
+                if ((loginAlias - 1) == cache.Rvalidator.elementAt(i)) {
+                    System.out.print(j + "\t");
+                    System.out.print(cache.Rdate.elementAt(i) + "\t\t");
+                    System.out.print(cache.Rnama.elementAt(i) + "\t");
+                    System.out.print(cache.Rtipe.elementAt(i) + "\t");
+                    System.out.print(cache.Rjumlah.elementAt(i) + "\t");
+                    System.out.print(cache.Rtotal.elementAt(i) + "\t");
+                    cetak.spasi(1);
+                    j++;
+                }
+            }
+            j = 0;
+        }
+        cetak.spasi(1);
+        System.out.println("--------------------------------------------------------------");
+        mainMenu();
     }
 }

@@ -23,9 +23,9 @@ public class main {
         // System.out.println(fitur.createDate);
 
         cache.allCache();
-        System.out.println(cache.Nnomorktp);
-        System.out.println(cache.Nnomorktp.size());
-        System.out.println(cache.Nnomorktp.elementAt(0).length());
+        // System.out.println(cache.Nnomorktp);
+        // System.out.println(cache.Nnomorktp.size());
+        // System.out.println(cache.Nnomorktp.elementAt(0).length());
         loginMenu();
     }
 
@@ -55,7 +55,7 @@ public class main {
             if (adminUserPass.equals("0")) {
                 sysExit();
             }
-
+            cetak.spasi(1);
             System.out.println("Checking...");
 
             for (int i = 0; i < cache.Vector_dataAdminUserName.size(); i++) {
@@ -63,7 +63,7 @@ public class main {
                 String b = cache.Vector_dataAdminUserName.elementAt(i);
                 if (adminUserName.equals(a) && adminUserPass.equals(b)) {
                     loginAlias = i;
-                    System.out.println("LoginAlias : " + loginAlias);
+                    // System.out.println("LoginAlias : " + loginAlias);
                     if (loginAlias == 1) {
                         debugMode = true;
                         System.out.println(cetak.ANSI_CYAN_BG + "[DEBUG MODE ACTIVATED]");

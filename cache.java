@@ -110,6 +110,14 @@ public class cache {
 
             // Data saldo
             Nsaldo.add(SNsaldo[i]);
+
+            // Rekaman Saldo
+            Rtipe.add('K');
+            Rjumlah.add(SNsaldo[i]);
+            Rtotal.add(SNsaldo[i]);
+            Rdate.add(fitur.formatter3.format(fitur.date));
+            Rnama.add("Setoran Tunai");
+            Rvalidator.add(i);
         }
     }
 
@@ -145,7 +153,7 @@ public class cache {
          */
         String temp = "";
         temp = fitur.ktp.substring(0, 2) + fitur.telp.substring((fitur.telp.length() - 2), fitur.telp.length())
-                + fitur.ktp.substring(8, 10);
+                + fitur.ktp.substring(9, fitur.ktp.length());
         return temp;
     }
 

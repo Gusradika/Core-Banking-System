@@ -1332,5 +1332,9 @@ public class fitur {
         System.out.println("--------------------------------------------------------------");
         mainMenu();
     }
+    /*
+     * ################# FEATURE KE 8 - PROSES PENARIKAN #################
+     * 
+     */
 
 }

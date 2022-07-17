@@ -4,14 +4,14 @@ import java.text.*;
 
 public class fitur {
 
-    public static int input = 0, setoran = 0, input2 = 0, loginAlias = 0;
+    public static int input = 0, setoran = 0, input2 = 0, loginAlias = 0, penarikan = 0;
     private static boolean viewpin = false, pernahSetor = true;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
             ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
     private static boolean parameterNotOk = true;
     public static SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public static SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-    public static SimpleDateFormat formatter3 = new SimpleDateFormat("dd/MM HH:mm");
+    public static SimpleDateFormat formatter3 = new SimpleDateFormat("dd/MM");
     public static Date date = new Date();
 
     // Utk Fitur 2, 3
@@ -21,20 +21,21 @@ public class fitur {
 
     // login UI
     public static void mainMenu() throws IOException {
+
         inputString = "";
         input = 0;
         do {
             cetak.spasi(2);
             // "Core Banking System // Pt.Bank Indivo Central" + cetak.ANSI_RESET + " || " +
             // cetak.randomLoginText()
-            cetak.banner("CORE BANKING SYSTEM MENU" + cetak.ANSI_RESET + " || "
+            cetak.banner("Pt. Bank Invido Central (BIC) MENU" + cetak.ANSI_RESET + " || "
                     + "Dont forget to Smile, Happy, and Keep your spirit up!");
             System.out.println(cetak.ANSI_YELLOW + "NEWS : " + cetak.ANSI_RESET + cetak.newsPromosi());
             System.out.println(
-                    "#########################################################################################");
+                    "###################################################################################################");
             System.out.println(
                     cetak.ANSI_CYAN + "LOGGED IN AS" + cetak.ANSI_RESET + " " + cache.loginId[main.loginAlias]
-                            + cetak.ANSI_CYAN + " Time : " + cetak.ANSI_RESET + formatter1.format(date));
+                            + cetak.ANSI_CYAN + "\tTime Login : " + cetak.ANSI_RESET + formatter1.format(date));
             cetak.spasi(1);
             System.out.println(
                     "[1] - Registrasi Nasabah\n[2] - View Data Nasabah\n[3] - Pencarian Data Nasabah\n[4] - Hapus Edit Data Nasabah\n[5] - Proses Setoran\n[6] - Proses Penarikan\n[7] - Cetak Buku\n[8] - Transfer\n[9] - Penutupan Rekening");
@@ -64,6 +65,11 @@ public class fitur {
                 case 5:
                     prosesSetoran();
                     break;
+
+                case 6:
+                    prosesPenarikan();
+                    break;
+
                 case 7:
                     cetakBuku();
                     break;
@@ -498,12 +504,22 @@ public class fitur {
         System.out.println(
                 "#-------------------------------------------------------------------------------------------------------------#");
         for (int i = 0; i < cache.Nnomorktp.size(); i++) {
-            System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
-
-                    + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t" + cache.Nnama.elementAt(i)
-                    + "\t" + cache.Ntelp.elementAt(i)
-                    + "\t" + cache.Nemail.elementAt(i).substring(0, 10) + "...\t" + cache.Nsaldo.elementAt(i) + "\t"
-                    + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+            if (cache.Nemail.elementAt(i).equals("-")) {
+                System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
+                        + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t"
+                        + cache.Nnama.elementAt(i)
+                        + "\t" + cache.Ntelp.elementAt(i)
+                        + "\t" + cache.Nemail.elementAt(i).substring(0) + "\t\t" + cache.Nsaldo.elementAt(i) + "\t"
+                        + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+            }
+            if (!cache.Nemail.elementAt(i).equals("-")) {
+                System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
+                        + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t"
+                        + cache.Nnama.elementAt(i)
+                        + "\t" + cache.Ntelp.elementAt(i)
+                        + "\t" + cache.Nemail.elementAt(i).substring(0, 10) + "...\t" + cache.Nsaldo.elementAt(i) + "\t"
+                        + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+            }
         }
         System.out.println(
                 "#-------------------------------------------------------------------------------------------------------------#");
@@ -674,12 +690,22 @@ public class fitur {
         System.out.println(
                 "#-------------------------------------------------------------------------------------------------------------#");
         for (int i = 0; i < cache.Nnomorktp.size(); i++) {
-            System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
-
-                    + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t" + cache.Nnama.elementAt(i)
-                    + "\t" + cache.Ntelp.elementAt(i)
-                    + "\t" + cache.Nemail.elementAt(i).substring(0, 10) + "...\t" + cache.Nsaldo.elementAt(i) + "\t"
-                    + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+            if (cache.Nemail.elementAt(i).equals("-")) {
+                System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
+                        + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t"
+                        + cache.Nnama.elementAt(i)
+                        + "\t" + cache.Ntelp.elementAt(i)
+                        + "\t" + cache.Nemail.elementAt(i).substring(0) + "\t\t" + cache.Nsaldo.elementAt(i) + "\t"
+                        + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+            }
+            if (!cache.Nemail.elementAt(i).equals("-")) {
+                System.out.println(cetak.ANSI_GREEN + "  [" + (i + 1) + "]\t" + cetak.ANSI_RESET
+                        + cache.Nnorek.elementAt(i) + "\t" + cache.Nnomorktp.elementAt(i) + "\t"
+                        + cache.Nnama.elementAt(i)
+                        + "\t" + cache.Ntelp.elementAt(i)
+                        + "\t" + cache.Nemail.elementAt(i).substring(0, 10) + "...\t" + cache.Nsaldo.elementAt(i) + "\t"
+                        + cetak.ANSI_CYAN + "[" + cache.NcreateDate.elementAt(i) + "]" + cetak.ANSI_RESET);
+            }
         }
         System.out.println(
                 "#-------------------------------------------------------------------------------------------------------------#");
@@ -757,7 +783,7 @@ public class fitur {
                     "#-------------------------------------------------------------------------------------------------------------#");
             System.out.print(
                     "Pilih data yang ingin di ganti" + cetak.ANSI_YELLOW
-                            + " [0 = Back || 1 = Back to Main Menu]>" + cetak.ANSI_RESET);
+                            + " [0 = Back]>" + cetak.ANSI_RESET);
             input2 = main.sc.nextInt();
             String temp = Integer.toString(input2);
             if (input2 == 0) {
@@ -1034,15 +1060,15 @@ public class fitur {
     }
 
     public static void setoranByNorek() throws IOException {
+        loginAlias = input - 1;
         do {
             cetak.spasi(2);
             cetak.banner2(
-                    "X - Setoran Norek - " + cache.Nnorek.elementAt(input - 1) + " "
-                            + cache.Nnama.elementAt(input - 1));
-            loginAlias = input - 1;
+                    "X - Setoran Norek - " + cache.Nnorek.elementAt(loginAlias) + " "
+                            + cache.Nnama.elementAt(loginAlias));
             cetak.spasi(1);
-            System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(input - 1));
-            System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(input - 1));
+            System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+            System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(loginAlias));
             System.out.print("Masukan Jumlah Setoran[0 = Back]\t: ");
 
             input = main.sc.nextInt();
@@ -1077,13 +1103,19 @@ public class fitur {
         cache.Rtipe.add('K');
         cache.Rjumlah.add(setoran);
         int temp = setoran + cache.Nsaldo.elementAt(loginAlias);
-        cache.Nsaldo.set(loginAlias, temp);
         cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
         cache.Rdate.add(formatter3.format(date));
         cache.Rnama.add("Setoran Tunai");
         cache.Rvalidator.add(loginAlias);
         cetak.spasi(1);
         System.out.println(cetak.ANSI_GREEN_BG + "SETORAN BERHASIL" + cetak.ANSI_RESET);
+        cetak.spasi(1);
+        System.out.println("No rekening\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+        System.out.println("Jumlah yang di setor\t\t\t: " + setoran);
+        System.out.println("Saldo awal\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+        cache.Nsaldo.set(loginAlias, temp);
+        System.out.println("Saldo Setelah setor\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+        System.out.println("Tanggal setoran\t\t\t\t: " + cetak.ANSI_CYAN + formatter2.format(date) + cetak.ANSI_RESET);
         loginAlias = 0;
         temp = 0;
         // for (int i = 0; i < cache.Rtipe.size(); i++) {
@@ -1103,6 +1135,114 @@ public class fitur {
      * 
      */
 
+    public static void prosesPenarikan() throws IOException {
+        do {
+            String a = "", b = "";
+            cetak.spasi(2);
+            cetak.banner2("2 - Proses Penarikan");
+            cetak.spasi(1);
+            System.out.print("Masukan Nomor Rekening [0 = Back] \t: ");
+            inputString = main.br.readLine();
+            a = inputString;
+            if (a.equals("0")) {
+                mainMenu();
+            }
+            System.out.print("Masukan PIN Rekening [0 = Back] \t: ");
+            inputString = main.br.readLine();
+            b = inputString;
+            if (b.equals("0")) {
+                mainMenu();
+            }
+            for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                if (a.equals(cache.Nnorek.elementAt(i)) && b.equals(cache.Npin.elementAt(i))) {
+                    loginAlias = i + 1;
+                    System.out.println("");
+                    System.out.println(cetak.ANSI_GREEN_BG + "SUCCESS" + cetak.ANSI_RESET);
+                    penarikanByNorek();
+                }
+            }
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_RED_BG + "NOREK / PIN SALAH" + cetak.ANSI_RESET);
+        } while (true);
+    }
+
+    public static void penarikanByNorek() throws IOException {
+        loginAlias -= 1;
+        do {
+            cetak.spasi(2);
+            cetak.banner2(
+                    "X - Penarikan Norek - " + cache.Nnorek.elementAt(loginAlias) + " "
+                            + cache.Nnama.elementAt(loginAlias));
+            cetak.spasi(1);
+            System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+            System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(loginAlias));
+            System.out.print("Masukan Jumlah Penarikan [0 = Back]\t: ");
+
+            input = main.sc.nextInt();
+            if (input == 0) {
+                prosesPenarikan();
+            }
+            if (cache.Nsaldo.elementAt(loginAlias) <= 50000) {
+                cetak.spasi(1);
+                System.out.println(cetak.ANSI_RED_BG + "Saldo Tidak Cukup!" + cetak.ANSI_RESET);
+                penarikanByNorek();
+            }
+            if (input >= 50000) {
+                penarikan = input;
+                cetak.spasi(1);
+                do {
+                    System.out.print(
+                            "Apakah anda yakin?" + cetak.ANSI_YELLOW + " [0 = Back || 1 = Ya] >" + cetak.ANSI_RESET);
+                    input = main.sc.nextInt();
+                    if (input == 0) {
+                        prosesPenarikan();
+                    }
+                    if (input == 1) {
+                        validatingTransaksiPenarikan();
+                    } else {
+                        System.out.println(
+                                cetak.ANSI_RED_BG + "Inputan Salah" + cetak.ANSI_RESET);
+                    }
+                } while (true);
+            } else {
+                System.out
+                        .println(cetak.ANSI_RED_BG + "Inputan dibawah Jumlah minimum! [Min 50000]" + cetak.ANSI_RESET);
+            }
+        } while (true);
+    }
+
+    public static void validatingTransaksiPenarikan() throws IOException {
+        cache.Rtipe.add('D');
+        cache.Rjumlah.add(penarikan);
+        int temp = cache.Nsaldo.elementAt(loginAlias) - penarikan;
+        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
+        cache.Rdate.add(formatter3.format(date));
+        cache.Rnama.add("Penarikan Tunai");
+        cache.Rvalidator.add(loginAlias);
+        cetak.spasi(1);
+        System.out.println(cetak.ANSI_GREEN_BG + "PENARIKAN BERHASIL" + cetak.ANSI_RESET);
+        cetak.spasi(1);
+        System.out.println("No rekening\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+        System.out.println("Jumlah yang di tarik\t\t\t: " + penarikan);
+        cache.Nsaldo.set(loginAlias, temp);
+        System.out.println("Saldo awal\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+        System.out.println("Saldo Setelah tarik\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+        System.out.println("Tanggal Penarikan\t\t\t: " + cetak.ANSI_CYAN + formatter2.format(date) + cetak.ANSI_RESET);
+
+        loginAlias = 0;
+        temp = 0;
+        // for (int i = 0; i < cache.Rtipe.size(); i++) {
+        // System.out.println(cache.Rtipe.elementAt(i));
+        // System.out.println(cache.Rjumlah.elementAt(i));
+        // System.out.println(cache.Rtotal.elementAt(i));
+        // System.out.println(cache.Rdate.elementAt(i));
+        // System.out.println(cache.Rnama.elementAt(i));
+        // System.out.println(cache.Rvalidator.elementAt(i));
+        // }
+        pernahSetor = true;
+        mainMenu();
+    }
+
     /*
      * ################# FEATURE KE 7 - CETAK BUKU #################
      * 
@@ -1110,7 +1250,6 @@ public class fitur {
 
     public static void cetakBuku() throws IOException {
         do {
-            boolean cetakBuku = false;
             String a = "", b = "";
             cetak.spasi(2);
             cetak.banner2("7 - Proses Cetak Buku");
@@ -1131,7 +1270,6 @@ public class fitur {
             for (int i = 0; i < cache.Nnomorktp.size(); i++) {
                 if (a.equals(cache.Nnorek.elementAt(i)) && b.equals(cache.Npin.elementAt(i))) {
                     loginAlias = i + 1;
-                    cetakBuku = true;
                     prosesCetakBuku();
                 }
             }
@@ -1151,17 +1289,19 @@ public class fitur {
 
     public static void prosesCetakBuku() throws IOException {
         int temp = 0;
-        String[] menuCetakBuku = { "NO\t", "Tgl / Jam\t\t", "Keterangan\t", "K/D\t", "Jumlah\t", "Total\t" };
+        String[] menuCetakBuku = { "NO\t", "Tgl\t\t", "Keterangan\t", "K/D\t", "Jumlah\t", "Total\t" };
         cetak.spasi(2);
-        cetak.banner2("X - Informasi Buku Norek - " + cache.Nnorek.elementAt(loginAlias - 1) + " Pemilik : "
-                + cache.Nnama.elementAt(loginAlias - 1));
-
-        System.out.println("--------------------------------------------------------------");
+        cetak.banner2("X - Informasi Buku Tabungan Nasabah || Pt. Bank Invido Central (BIC)");
+        System.out.println(
+                cetak.ANSI_CYAN + "Nomor Rekening : " + cetak.ANSI_RESET + cache.Nnorek.elementAt(loginAlias - 1)
+                        + cetak.ANSI_CYAN + "\tPemilik Rekening : " + cetak.ANSI_RESET
+                        + cache.Nnama.elementAt(loginAlias - 1));
+        System.out.println("--------------------------------------------------------------------------");
         for (int i = 0; i < menuCetakBuku.length; i++) {
             System.out.print(cetak.ANSI_YELLOW + menuCetakBuku[i] + cetak.ANSI_RESET);
         }
         cetak.spasi(1);
-        System.out.println("--------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------");
         if (pernahSetor) {
             for (int i = 0; i < cache.Rtipe.size(); i++) {
                 if (cache.Rvalidator.elementAt(i) == (loginAlias - 1)) {
@@ -1192,4 +1332,5 @@ public class fitur {
         System.out.println("--------------------------------------------------------------");
         mainMenu();
     }
+
 }

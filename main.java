@@ -33,7 +33,7 @@ public class main {
         do {
             cetak.spasi(1);
             cetak.bannerLogin(
-                    "Core Banking System // Pt.Bank Indivo Central" + cetak.ANSI_RESET + " || "
+                    "Core Banking System // Pt.Bank Indivo Central (BIC)" + cetak.ANSI_RESET + " || "
                             + cetak.randomLoginText());
             System.out.println(
                     "- " + cetak.ANSI_CYAN + "Motto : " + cetak.ANSI_RESET

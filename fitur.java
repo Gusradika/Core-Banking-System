@@ -78,6 +78,10 @@ public class fitur {
                 case 8:
                     transfer();
                     break;
+
+                case 9:
+                    penutupanRekening();
+                    break;
             }
         } while (true);
 
@@ -1476,6 +1480,112 @@ public class fitur {
         idtf = 0;
         jumlah = 0;
         saldoawal = 0;
+        mainMenu();
+    }
+
+    /*
+     * Feature ke 9 - PENUTUPAN REKENING
+     */
+
+    public static void penutupanRekening() throws IOException {
+        String a = "", b = "";
+        cetak.spasi(2);
+        cetak.banner2("9 - Penutupan Rekening");
+        cetak.spasi(1);
+
+        do {
+            System.out.print(
+                    cetak.ANSI_YELLOW + "Masukan Nomor Rekening yang ingin ditutup [0 = Back] > :" + cetak.ANSI_RESET);
+            inputString = main.br.readLine();
+            if (inputString.equals("0")) {
+                mainMenu();
+            }
+            a = inputString;
+            System.out.print("Masukan Pin [0 = Back] > ");
+            inputString = main.br.readLine();
+            if (inputString.equals("0")) {
+                mainMenu();
+            }
+            b = inputString;
+            for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                if (a.equals(cache.Nnorek.elementAt(i)) && b.equals(cache.Npin.elementAt(i))) {
+                    loginAlias = i;
+                    System.out.println(cetak.ANSI_GREEN_BG + "Berhasil Masuk" + cetak.ANSI_RESET);
+                    prosesPenutupanRekening();
+                }
+            }
+            System.out.println(cetak.ANSI_RED_BG + "NOREK/PIN SALAH!" + cetak.ANSI_RESET);
+        } while (true);
+    }
+
+    public static void prosesPenutupanRekening() throws IOException {
+        cetak.spasi(2);
+        cetak.banner2("X - Proses Penutupan Rekening - " + cache.Nnorek.elementAt(loginAlias));
+        cetak.spasi(1);
+        System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+        System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(loginAlias));
+        System.out.println("Saldo anda\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+        cetak.spasi(1);
+        do {
+            System.out.println(cetak.ANSI_YELLOW
+                    + "Apa anda yakin untuk menutup rekening? segala Data dan Nominal saldo tidak dapat dikembalikan jika lanjut");
+            System.out.print("Masukan nama ibu kandung untuk menghapus [0 Cancel] : ");
+            inputString = main.br.readLine();
+            if (inputString.equals("0")) {
+                cetak.spasi(1);
+                System.out.println(cetak.ANSI_RED_BG + "CANCELED..." + cetak.ANSI_RESET);
+                mainMenu();
+            }
+            if (inputString.equals(cache.NibuKandung.elementAt(loginAlias))) {
+                System.out
+                        .print("ketik " + cetak.ANSI_YELLOW + " \"HAPUS\" " + cetak.ANSI_RESET + " untuk melanjutkan");
+                inputString = main.br.readLine();
+                if (inputString.equalsIgnoreCase("HAPUS")) {
+                    prosesHapusData();
+                }
+            }
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_RED_BG + "Inputan Salah!" + cetak.ANSI_RESET);
+        } while (true);
+    }
+
+    public static void prosesHapusData() throws IOException {
+        cache.Nnomorktp.removeElementAt(loginAlias);
+        cache.Nnama.removeElementAt(loginAlias);
+        cache.Nalamat.removeElementAt(loginAlias);
+        cache.Ngender.removeElementAt(loginAlias);
+        cache.Nagama.removeElementAt(loginAlias);
+        cache.Nbirthdate.removeElementAt(loginAlias);
+
+        cache.Ntelp.removeElementAt(loginAlias);
+        cache.NibuKandung.removeElementAt(loginAlias);
+        cache.Nemail.removeElementAt(loginAlias);
+
+        cache.Npekerjaan.removeElementAt(loginAlias);
+
+        cache.Npin.removeElementAt(loginAlias);
+        cache.Nnorek.removeElementAt(loginAlias);
+        cache.Nsaldo.removeElementAt(loginAlias);
+
+        for (int i = 0; i < cache.Rtipe.size(); i++) {
+            if (loginAlias == cache.Rvalidator.elementAt(i)) {
+                // int a = i;
+                cache.Rtipe.removeElementAt(i);
+                cache.Rjumlah.removeElementAt(i);
+                cache.Rtotal.removeElementAt(i);
+                cache.Rdate.removeElementAt(i);
+                cache.Rnama.removeElementAt(i);
+                cache.Rvalidator.removeElementAt(i);
+            }
+        }
+        if (loginAlias != cache.Nnomorktp.size()) {
+            for (int i = 0; i < cache.Rvalidator.size(); i++) {
+                int c = cache.Rvalidator.elementAt(i) - 1;
+                cache.Rvalidator.set(i, c);
+            }
+        }
+
+        System.out.println(cetak.ANSI_GREEN_BG + "PENGHAPUSAN DATA BERHASIL!" + cetak.ANSI_RESET);
         mainMenu();
     }
 

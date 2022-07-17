@@ -795,7 +795,6 @@ public class fitur {
                     "Pilih data yang ingin di ganti" + cetak.ANSI_YELLOW
                             + " [0 = Back]>" + cetak.ANSI_RESET);
             input2 = main.sc.nextInt();
-            String temp = Integer.toString(input2);
             if (input2 == 0) {
                 viewpin = false;
                 inputString = "";
@@ -1341,7 +1340,7 @@ public class fitur {
             j = 0;
         }
         cetak.spasi(1);
-        System.out.println("--------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------");
         mainMenu();
     }
     /*
@@ -1529,7 +1528,7 @@ public class fitur {
         do {
             System.out.println(cetak.ANSI_YELLOW
                     + "Apa anda yakin untuk menutup rekening? segala Data dan Nominal saldo tidak dapat dikembalikan jika lanjut");
-            System.out.print("Masukan nama ibu kandung untuk menghapus [0 Cancel] : ");
+            System.out.print("Masukan nama ibu kandung untuk menghapus [0 Cancel] : " + cetak.ANSI_RESET);
             inputString = main.br.readLine();
             if (inputString.equals("0")) {
                 cetak.spasi(1);
@@ -1538,7 +1537,8 @@ public class fitur {
             }
             if (inputString.equals(cache.NibuKandung.elementAt(loginAlias))) {
                 System.out
-                        .print("ketik " + cetak.ANSI_YELLOW + " \"HAPUS\" " + cetak.ANSI_RESET + " untuk melanjutkan");
+                        .print("ketik " + cetak.ANSI_YELLOW + " \"HAPUS\" " + cetak.ANSI_RESET
+                                + " untuk melanjutkan > ");
                 inputString = main.br.readLine();
                 if (inputString.equalsIgnoreCase("HAPUS")) {
                     prosesHapusData();

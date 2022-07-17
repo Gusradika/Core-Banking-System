@@ -22,14 +22,14 @@ public class main {
         // fitur.createDate = fitur.formatter2.format(fitur.date);
         // System.out.println(fitur.createDate);
 
-        System.out.println(cache.generatePin2());
-        System.out.println(cache.generatePin2());
-        System.out.println(cache.generatePin2());
-        System.out.println(cache.generatePin2());
-        System.out.println(cache.generatePin2());
+        // System.out.println(cache.generatePin2());
+        // System.out.println(cache.generatePin2());
+        // System.out.println(cache.generatePin2());
+        // System.out.println(cache.generatePin2());
+        // System.out.println(cache.generatePin2());
 
         cache.allCache();
-        System.out.println(cache.Npin);
+        // System.out.println(cache.Npin);
         // System.out.println(cache.Nnomorktp);
         // System.out.println(cache.Nnomorktp.size());
         // System.out.println(cache.Nnomorktp.elementAt(0).length());

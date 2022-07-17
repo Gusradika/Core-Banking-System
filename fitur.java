@@ -1014,14 +1014,7 @@ public class fitur {
     /*
      * ################# FEATURE KE 5 - PROSES SETORAN #################
      * 
-     * Belum di cek Bug nya.
-     * Belum di rapikan
-     * Debug modenya belum di komen
-     * 
      */
-
-    // Buat setoran awal pada Registrasi Nasabah untuk Setoran awalnya hingga dapat
-    // direkam dan di cetak di cetak buku
 
     public static void prosesSetoran() throws IOException {
         do {
@@ -1149,7 +1142,7 @@ public class fitur {
         do {
             String a = "", b = "";
             cetak.spasi(2);
-            cetak.banner2("2 - Proses Penarikan");
+            cetak.banner2("6 - Proses Penarikan");
             cetak.spasi(1);
             System.out.print("Masukan Nomor Rekening [0 = Back] \t: ");
             inputString = main.br.readLine();

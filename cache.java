@@ -4,7 +4,7 @@ public class cache {
 
     public static String kodeRahasia = "21410100039";
 
-    public static int rangeMinNorek = 1000, rangeMaxNorek = 9999;
+    public static int rangeMinNorek = 1000, rangeMaxNorek = 9999, rangeMinPin = 100, rangeMaxPin = 999;
     public static Random random = new Random();
 
     private static String String_dataAdminUserName[] = { "1", "debug" };
@@ -82,7 +82,6 @@ public class cache {
     public static void allCache() {
         dataAdminVector();
         dataCacheNasabah();
-        cache.generatePin();
     }
 
     public static void dataCacheNasabah() {
@@ -121,24 +120,25 @@ public class cache {
         }
     }
 
-    public static void generatePin() {
-        /*
-         * method ini digunakan untuk generate Pin khusus pengguna yang sudah di
-         * tentukan di awal program (cache)
-         * 
-         * RUMUS :
-         * SNnomorktp 2141010039 --> 2 Pertama = 21
-         * SNtelp 081330293390 --> 2 Terakhir = 90
-         * SNnomorktp 2141010039 --> 2 Terakhir = 39
-         * PIN = 219039
-         */
-        String temp = "";
-        for (int i = 0; i < SNnomorKtp.length; i++) {
-            temp = SNnomorKtp[i].substring(0, 2) + SNtelp[i].substring(10, 12) + SNnomorKtp[i].substring(8, 10);
-            // System.out.println(i + "- " + temp);
-            Npin.add(temp);
-        }
-    }
+    // public static void generatePin() {
+    // /*
+    // * method ini digunakan untuk generate Pin khusus pengguna yang sudah di
+    // * tentukan di awal program (cache)
+    // *
+    // * RUMUS :
+    // * SNnomorktp 2141010039 --> 2 Pertama = 21
+    // * SNtelp 081330293390 --> 2 Terakhir = 90
+    // * SNnomorktp 2141010039 --> 2 Terakhir = 39
+    // * PIN = 219039
+    // */
+    // String temp = "";
+    // for (int i = 0; i < SNnomorKtp.length; i++) {
+    // temp = SNnomorKtp[i].substring(0, 2) + SNtelp[i].substring(10, 12) +
+    // SNnomorKtp[i].substring(8, 10);
+    // // System.out.println(i + "- " + temp);
+    // Npin.add(temp);
+    // }
+    // }
 
     public static String generatePin2() {
         /*
@@ -152,8 +152,14 @@ public class cache {
          * PIN = 219039
          */
         String temp = "";
-        temp = fitur.ktp.substring(0, 2) + fitur.telp.substring((fitur.telp.length() - 2), fitur.telp.length())
-                + fitur.ktp.substring(9, fitur.ktp.length());
+        // temp = fitur.ktp.substring(0, 2) + fitur.telp.substring((fitur.telp.length()
+        // - 2), fitur.telp.length())
+        // + fitur.ktp.substring(9, fitur.ktp.length());
+        for (int i = 0; i < 2; i++) {
+            int tempInt = random.nextInt(rangeMaxPin + 1 - rangeMinPin) + rangeMinPin;
+            String a = Integer.toString(tempInt);
+            temp = temp + a;
+        }
         return temp;
     }
 

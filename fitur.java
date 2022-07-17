@@ -4,10 +4,11 @@ import java.text.*;
 
 public class fitur {
 
-    public static int input = 0, setoran = 0, input2 = 0, loginAlias = 0, penarikan = 0;
+    public static int input = 0, setoran = 0, input2 = 0, loginAlias = 0, penarikan = 0, idtf = 0, jumlah = 0;
     private static boolean viewpin = false, pernahSetor = true;
     public static String ktp = "", nama = "", alamat = "", gender = "", agama = "", birthdate = "", telp = "",
-            ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "";
+            ibukandung = "", email = "", pekerjaan = "", inputString = "", pin = "", norek = "", createDate = "",
+            tujuantf = "";
     private static boolean parameterNotOk = true;
     public static SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public static SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -72,6 +73,10 @@ public class fitur {
 
                 case 7:
                     cetakBuku();
+                    break;
+
+                case 8:
+                    transfer();
                     break;
             }
         } while (true);
@@ -245,7 +250,7 @@ public class fitur {
             System.out.println(
                     "Nomor Rekening\t\t\t: " + cetak.ANSI_YELLOW_BG + norek + cetak.ANSI_RESET);
             do {
-                System.out.print("Ingin merubah PIN? [0 = Tidak | 1 = Ya] >");
+                System.out.print("Apakah anda ingin merubah pin anda? [0 = tidak | 1 = ya]");
                 inputString = main.br.readLine();
                 if (inputString.equals("1")) {
                     do {
@@ -265,6 +270,7 @@ public class fitur {
                 }
                 cetak.spasi(1);
                 System.out.println("PIN yang baru : " + cetak.ANSI_YELLOW_BG + pin + cetak.ANSI_RESET);
+
                 break;
             } while (true);
             do {
@@ -278,7 +284,7 @@ public class fitur {
                     cache.Rdate.add(formatter3.format(date));
                     cache.Rnama.add("Setoran Tunai");
                     cache.Rvalidator.add(cache.Rvalidator.size());
-                    System.out.println(cache.Rvalidator);
+                    // System.out.println(cache.Rvalidator);
                     break;
                 }
                 System.out.println(cetak.ANSI_RED_BG + "Jumlah Minim tidak terpenuhi" + cetak.ANSI_RESET);
@@ -299,10 +305,10 @@ public class fitur {
         cache.Nagama.add(agama);
         cache.Nbirthdate.add(birthdate);
         cache.Ntelp.add(telp);
+        cache.Npin.add(pin);
         cache.NibuKandung.add(ibukandung);
         cache.Nemail.add(email);
         cache.Npekerjaan.add(pekerjaan);
-        cache.Npin.add(pin);
         cache.Nnorek.add(norek);
         cache.NcreateDate.add(createDate);
         cache.Nsaldo.add(setoran);
@@ -1069,6 +1075,7 @@ public class fitur {
             cetak.spasi(1);
             System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
             System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(loginAlias));
+            System.out.println("Saldo anda\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
             System.out.print("Masukan Jumlah Setoran[0 = Back]\t: ");
 
             input = main.sc.nextInt();
@@ -1103,7 +1110,6 @@ public class fitur {
         cache.Rtipe.add('K');
         cache.Rjumlah.add(setoran);
         int temp = setoran + cache.Nsaldo.elementAt(loginAlias);
-        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
         cache.Rdate.add(formatter3.format(date));
         cache.Rnama.add("Setoran Tunai");
         cache.Rvalidator.add(loginAlias);
@@ -1114,6 +1120,7 @@ public class fitur {
         System.out.println("Jumlah yang di setor\t\t\t: " + setoran);
         System.out.println("Saldo awal\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
         cache.Nsaldo.set(loginAlias, temp);
+        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
         System.out.println("Saldo Setelah setor\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
         System.out.println("Tanggal setoran\t\t\t\t: " + cetak.ANSI_CYAN + formatter2.format(date) + cetak.ANSI_RESET);
         loginAlias = 0;
@@ -1176,6 +1183,7 @@ public class fitur {
             cetak.spasi(1);
             System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
             System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(loginAlias));
+            System.out.println("Saldo anda\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
             System.out.print("Masukan Jumlah Penarikan [0 = Back]\t: ");
 
             input = main.sc.nextInt();
@@ -1215,7 +1223,6 @@ public class fitur {
         cache.Rtipe.add('D');
         cache.Rjumlah.add(penarikan);
         int temp = cache.Nsaldo.elementAt(loginAlias) - penarikan;
-        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
         cache.Rdate.add(formatter3.format(date));
         cache.Rnama.add("Penarikan Tunai");
         cache.Rvalidator.add(loginAlias);
@@ -1225,6 +1232,7 @@ public class fitur {
         System.out.println("No rekening\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
         System.out.println("Jumlah yang di tarik\t\t\t: " + penarikan);
         cache.Nsaldo.set(loginAlias, temp);
+        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
         System.out.println("Saldo awal\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
         System.out.println("Saldo Setelah tarik\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
         System.out.println("Tanggal Penarikan\t\t\t: " + cetak.ANSI_CYAN + formatter2.format(date) + cetak.ANSI_RESET);
@@ -1333,8 +1341,147 @@ public class fitur {
         mainMenu();
     }
     /*
-     * ################# FEATURE KE 8 - PROSES PENARIKAN #################
+     * ################# FEATURE KE 8 - PROSES TRANSFER #################
      * 
      */
 
+    public static void transfer() throws IOException {
+        cetak.spasi(2);
+        cetak.banner2("8 - Transfer Antar Rekening");
+        cetak.spasi(1);
+        do {
+            String a = "", b = "";
+            System.out.print("Masukan Nomor Rekening [0 = Back] : ");
+            inputString = main.br.readLine();
+            a = inputString;
+            if (a.equals("0")) {
+                mainMenu();
+            }
+            System.out.print("Masukan PIN Rekening [0 = Back] : ");
+            inputString = main.br.readLine();
+            b = inputString;
+            if (b.equals("0")) {
+                mainMenu();
+            }
+
+            for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                if (a.equals(cache.Nnorek.elementAt(i)) && b.equals(cache.Npin.elementAt(i))) {
+                    loginAlias = i;
+                    System.out.println(cetak.ANSI_GREEN_BG + "Berhasil Masuk" + cetak.ANSI_RESET);
+                    menuTransfer();
+                }
+            }
+
+            System.out.println(cetak.ANSI_RED_BG + "NOREK/PIN SALAH" + cetak.ANSI_RESET);
+            loginAlias = 0;
+
+        } while (true);
+    }
+
+    public static void menuTransfer() throws IOException {
+        do {
+            cetak.spasi(2);
+            cetak.banner2(
+                    "X - Menu Transfer - || Pt. Bank Invido Central (BIC)");
+            cetak.spasi(1);
+            System.out.println("No Rek\t\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+            System.out.println("Pemilik Rekening\t\t\t: " + cache.Nnama.elementAt(loginAlias));
+            System.out.println("Saldo anda\t\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+            cetak.spasi(1);
+            System.out.print("Masukan Rekening tujuan [0 = Back]\t: ");
+            tujuantf = main.br.readLine();
+            if (tujuantf.equals("0")) {
+                mainMenu();
+            }
+            if (tujuantf.length() == 8) {
+                for (int i = 0; i < cache.Nnomorktp.size(); i++) {
+                    if (tujuantf.equals(cache.Nnorek.elementAt(i))) {
+                        idtf = i + 1;
+                        System.out.println("Rekening tujuan di temukan");
+                        jumlahTransfer();
+                    }
+                }
+            } else {
+                System.out.println(cetak.ANSI_RED_BG + "Rekening tujuan tidak ditemukan!" + cetak.ANSI_RESET);
+            }
+        } while (true);
+    }
+
+    public static void jumlahTransfer() throws IOException {
+        cetak.spasi(2);
+        System.out.println("No Rek tujuan \t\t\t\t: " + cache.Nnorek.elementAt(idtf - 1));
+        System.out.println("Atas nama \t\t\t\t: " + cache.Nnama.elementAt(idtf - 1));
+        cetak.spasi(1);
+        System.out.print("Masukan jumlah Transfer [0 = Back]\t: ");
+        input = main.sc.nextInt();
+        if (input == 0) {
+            cetak.spasi(1);
+            System.out.println(cetak.ANSI_RED_BG + "Back" + cetak.ANSI_RESET);
+            menuTransfer();
+        }
+        if (input != 0 && input < cache.Nsaldo.elementAt(loginAlias)) {
+            jumlah = input;
+            do {
+                System.out
+                        .print("Apakah anda yakin?" + cetak.ANSI_YELLOW + " [0 = Back | 1 Ya] : " + cetak.ANSI_RESET);
+                input = main.sc.nextInt();
+                if (input == 0) {
+                    cetak.spasi(1);
+                    System.out.println(cetak.ANSI_RED_BG + "Back" + cetak.ANSI_RESET);
+                    menuTransfer();
+                }
+                if (input == 1) {
+                    System.out.println(cetak.ANSI_GREEN_BG + "Processing..." + cetak.ANSI_RESET);
+                    validatingTransfer();
+                }
+            } while (true);
+        }
+    }
+
+    public static void validatingTransfer() throws IOException {
+        // Yang transfer
+        cache.Rtipe.add('D');
+        cache.Rjumlah.add(jumlah);
+        int saldoawal = cache.Nsaldo.elementAt(loginAlias);
+        int temp = cache.Nsaldo.elementAt(loginAlias) - jumlah;
+        cache.Rdate.add(formatter3.format(date));
+        cache.Rnama.add("To " + cache.Nnama.elementAt(idtf - 1).substring(0, 5) + "...");
+        cache.Rvalidator.add(loginAlias);
+        cache.Nsaldo.set(loginAlias, temp);
+        cache.Rtotal.add(cache.Nsaldo.elementAt(loginAlias));
+
+        // Yang menerima
+        cache.Rtipe.add('K');
+        cache.Rjumlah.add(jumlah);
+        int temp2 = cache.Nsaldo.elementAt(idtf - 1) + jumlah;
+        cache.Rdate.add(formatter3.format(date));
+        cache.Rnama.add("From " + cache.Nnama.elementAt(loginAlias).substring(0, 4) + "...");
+        cache.Rvalidator.add(idtf - 1);
+        cache.Nsaldo.set(idtf - 1, temp2);
+        cache.Rtotal.add(cache.Nsaldo.elementAt(idtf - 1));
+
+        cetak.spasi(1);
+        System.out.println(cetak.ANSI_GREEN_BG + "TRANSFER BERHASIL" + cetak.ANSI_RESET);
+        cetak.spasi(1);
+        System.out.println("No rekening\t\t\t\t: " + cache.Nnorek.elementAt(loginAlias));
+        System.out.println("Saldo awal\t\t\t\t: " + saldoawal);
+        System.out.println("Jumlah yang di Transfer\t\t\t: " + jumlah);
+        System.out.println("Rekening tujuan\t\t\t\t: " + cache.Nnorek.elementAt(idtf - 1));
+        System.out.println("Saldo Setelah Transfer\t\t\t: " + cache.Nsaldo.elementAt(loginAlias));
+        System.out.println("Tanggal Transfer\t\t\t: " + cetak.ANSI_CYAN + formatter2.format(date) + cetak.ANSI_RESET);
+
+        loginAlias = 0;
+        temp = 0;
+        temp2 = 0;
+        idtf = 0;
+        jumlah = 0;
+        saldoawal = 0;
+        mainMenu();
+    }
+
 }
+
+/*
+ * cek total dan saldo penarikan, setoran , Transfer di buku cetak
+ * 
+ */
